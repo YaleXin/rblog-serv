@@ -8,16 +8,19 @@ import java.util.List;
 
 
 @Entity
-@Table(name = "t_tag")
-public class Tag {
+@Table(name = "t_category")
+public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotBlank(message = "标签名称不能为空")
+    @NotBlank(message = "分类名称不能为空")
     private String name;
 
-    @ManyToMany(mappedBy = "tags")
+    @OneToMany(mappedBy = "category")
     private List<Blog> blogs = new ArrayList<>();
+
+    public Category() {
+    }
 
     public List<Blog> getBlogs() {
         return blogs;
@@ -27,12 +30,9 @@ public class Tag {
         this.blogs = blogs;
     }
 
-    public Tag() {
-    }
-
     @Override
     public String toString() {
-        return "Tag{" +
+        return "category{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 '}';
