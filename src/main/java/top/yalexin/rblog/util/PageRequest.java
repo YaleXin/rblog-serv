@@ -31,16 +31,18 @@ public class PageRequest {
         return pageNum;
     }
 
-    public void setPageNum(int pageNum) {
+    public PageRequest setPageNum(int pageNum) {
         this.pageNum = pageNum;
+        return this;
     }
 
     public int getPageSize() {
         return pageSize;
     }
 
-    public void setPageSize(int pageSize) {
+    public PageRequest setPageSize(int pageSize) {
         this.pageSize = pageSize;
+        return this;
     }
 
     public long getTotalSize() {

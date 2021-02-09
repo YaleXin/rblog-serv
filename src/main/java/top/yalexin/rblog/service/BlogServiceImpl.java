@@ -50,6 +50,13 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
+    public PageResult getBlogByPage(Integer pageNum, Integer pageSize) {
+        PageRequest pageRequest = new PageRequest();
+        pageRequest.setPageNum(pageNum).setPageSize(pageSize);
+        return PageUtils.getPageResult(pageRequest, getPageInfo(pageRequest));
+    }
+
+    @Override
     public Blog getBlogById(Long id) {
         if (id == null || id < 0) return null;
         else return blogMapper.findBlog(id);
@@ -131,9 +138,17 @@ public class BlogServiceImpl implements BlogService {
      * @return
      */
     private PageInfo<Blog> getPageInfo(PageRequest pageRequest) {
-        System.out.println("BlogServiceImpl.getPageInfo()");
         int pageNum = pageRequest.getPageNum();
         int pageSize = pageRequest.getPageSize();
+        PageHelper.startPage(pageNum, pageSize);
+        List<Blog> sysMenus = blogMapper.findAllBlogPage();
+        return new PageInfo<Blog>(sysMenus);
+    }
+
+    private PageInfo<Blog> getPageInfo(Integer pageNum, Integer pageSize) {
+        PageRequest pageRequest = new PageRequest();
+        pageRequest.setPageNum(pageNum).setPageSize(pageSize);
+        PageHelper.startPage(pageNum, pageSize);
         PageHelper.startPage(pageNum, pageSize);
         List<Blog> sysMenus = blogMapper.findAllBlogPage();
         return new PageInfo<Blog>(sysMenus);

@@ -15,10 +15,9 @@ public interface BlogMapper {
     @Select("select * from t_blog")
     List<Blog> findAllBlog();
 
-    @Select("select * from t_blog")
+    // 分页大小、页码数由插件自动生成
     List<Blog> findAllBlogPage();
 
-//    @Select("select * from t_blog where id=#{id}")
     Blog findBlog(long id);
 
     @Insert("insert into t_blog(name,content,description, create_time, update_time,category_id) values" +

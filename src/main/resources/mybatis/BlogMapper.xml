@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="top.yalexin.rblog.mapper.BlogMapper">
+
+    <!--  ****************************************************  -->
     <!--    Blog findBlog(long id);-->
     <select id="findBlog" parameterType="long" resultMap="blogWithCtgrAndTagMap">
         SELECT blog.* ,tag.`name` AS tag_name, ctgr.`name` AS c_name, tag.`id` AS t_id
@@ -30,4 +32,17 @@
         <id property="id" column="t_id"/>
         <result property="name" column="tag_name"/>
     </resultMap>
+
+
+    <!--  ****************************************************  -->
+<!--    List<Blog> findAllBlogPage();-->
+    <select id="findAllBlogPage" parameterType="long" resultMap="blogWithCtgrAndTagMap">
+        SELECT blog.* ,tag.`name` AS tag_name, ctgr.`name` AS c_name, tag.`id` AS t_id
+        FROM t_blog blog
+        LEFT OUTER JOIN t_blog_tags bt ON blog.`id`=bt.`blogs_id`
+        LEFT OUTER JOIN t_tag tag ON bt.`tags_id` = tag.`id`
+        LEFT OUTER JOIN t_category ctgr ON blog.`category_id` = ctgr.`id`
+        ORDER BY create_time DESC
+    </select>
+
 </mapper>

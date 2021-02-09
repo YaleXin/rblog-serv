@@ -6,17 +6,12 @@ import java.util.Date;
 import java.util.List;
 
 
-@Entity
-@Table(name = "t_comment")
 public class Comment {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nickname;
     private String email;
     private String avatar;
     private String content;
-    @Temporal(TemporalType.TIMESTAMP)
     private Date createTime;
 
     private boolean audited;
@@ -73,6 +68,7 @@ public class Comment {
     private List<Comment> replyComments = new ArrayList<>();
     @ManyToOne
     private Comment parentComment;
+
     public Blog getBlog() {
         return blog;
     }

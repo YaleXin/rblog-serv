@@ -24,6 +24,8 @@ public interface BlogService {
      */
     PageResult getBlogByPage(PageRequest pageRequest);
 
+    PageResult getBlogByPage(Integer pageNum, Integer pageSize);
+
     Blog getBlogById(Long id);
 
     Blog addBlog(Blog blog);

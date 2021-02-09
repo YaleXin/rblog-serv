@@ -7,16 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@Entity
-@Table(name = "t_category")
 public class Category {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotBlank(message = "分类名称不能为空")
     private String name;
 
-    @OneToMany(mappedBy = "category")
     private List<Blog> blogs = new ArrayList<>();
 
     public Category() {
