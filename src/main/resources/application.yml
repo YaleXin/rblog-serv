@@ -3,11 +3,10 @@ spring:
     active:
       - dev
 mybatis:
-  configuration:
-    # 驼峰命名
-    map-underscore-to-camel-case: true
-  mapper-locations: mybatis/**/*Mapper.xml
-  type-aliases-package: top.yalexin.rblog.entity.*
+  mapper-locations: classpath:mybatis/*Mapper.xml
+  config-location: classpath:mybatis/mybatis-config.xml
+
+
 # pagehelper
 pagehelper:
   helperDialect: mysql

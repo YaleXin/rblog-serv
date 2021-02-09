@@ -36,10 +36,10 @@ public class AdminBlogController {
     @PutMapping("/add")
     ResponseEntity addBlog(@RequestBody HashMap json) {
         Blog blog = (Blog) JSON.parseObject(json.get("data").toString(), Blog.class);
-        logger.info("前端blog-----> {}", blog);
+        logger.debug("前端blog-----> {}", blog);
         HashMap<String, Object> map = new HashMap<>();
         Blog addBlog = blogService.addBlog(blog);
-        logger.info("after saveBlog-----> {}", addBlog);
+        logger.debug("after saveBlog-----> {}", addBlog);
         if (addBlog == null) return new ResponseEntity(null, HttpStatus.BAD_REQUEST);
         map.put("addBlog", addBlog);
         return new ResponseEntity<>(map, HttpStatus.OK);

@@ -18,7 +18,7 @@ public interface BlogMapper {
     @Select("select * from t_blog")
     List<Blog> findAllBlogPage();
 
-    @Select("select * from t_blog where id=#{id}")
+//    @Select("select * from t_blog where id=#{id}")
     Blog findBlog(long id);
 
     @Insert("insert into t_blog(name,content,description, create_time, update_time,category_id) values" +

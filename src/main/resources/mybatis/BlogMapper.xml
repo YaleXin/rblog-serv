@@ -1,9 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="top.yalexin.rblog.mapper.BlogMapper">
-<!--    Blog findBlog(long id);-->
-    <select id="findBlog" resultMap=""></select>
-    <resultMap id="blogWithCtgrAndTag" type="top.yalexin.rblog.entity.Blog">
-        <id></id>
+    <!--    Blog findBlog(long id);-->
+    <select id="findBlog" parameterType="long" resultMap="blogWithCtgrAndTagMap">
+        SELECT blog.* ,tag.`name` AS tag_name, ctgr.`name` AS c_name, tag.`id` AS t_id
+        FROM t_blog blog
+        LEFT OUTER JOIN t_blog_tags bt ON blog.`id`=bt.`blogs_id`
+        LEFT OUTER JOIN t_tag tag ON bt.`tags_id` = tag.`id`
+        LEFT OUTER JOIN t_category ctgr ON blog.`category_id` = ctgr.`id`
+        WHERE blog.`id`=#{id}
+    </select>
+
+    <resultMap id="blogWithCtgrAndTagMap" type="Blog">
+        <id property="id" column="id"/>
+        <result property="content" column="content"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="published" column="published"/>
+        <result property="name" column="name"/>
+        <result property="description" column="description"/>
+        <result property="views" column="views"/>
+        <association property="category" javaType="Category">
+            <id property="id" column="category_id"/>
+            <result property="name" column="c_name"/>
+        </association>
+        <collection property="tags" ofType="Tag" resultMap="TagMap"/>
+    </resultMap>
+    <resultMap id="TagMap" type="Tag">
+        <id property="id" column="t_id"/>
+        <result property="name" column="tag_name"/>
     </resultMap>
 </mapper>

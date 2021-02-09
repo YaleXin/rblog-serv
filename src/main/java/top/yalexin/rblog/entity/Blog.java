@@ -25,8 +25,6 @@ public class Blog {
     private Integer views;
     private boolean published;
 
-    @Transient // 不需要保存到数据库 但是前端页面需要
-    private String tagIds;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date createTime;
@@ -46,16 +44,6 @@ public class Blog {
     }
 
 
-    public String getTagIds() {
-        return tagIds;
-    }
-
-    public void setTagIds(String tagIds) {
-        this.tagIds = tagIds;
-    }
-
-
-
     @OneToMany(mappedBy = "blog")
     private List<Comment> comments = new ArrayList<>();
 
@@ -68,23 +56,6 @@ public class Blog {
         return comments;
     }
 
-    @Override
-    public String toString() {
-        return "Blog{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", content='" + content + '\'' +
-                ", description='" + description + '\'' +
-                ", views=" + views +
-                ", published=" + published +
-                ", tagIds='" + tagIds + '\'' +
-                ", createTime=" + createTime +
-                ", updateTime=" + updateTime +
-                ", category=" + category +
-                ", comments=" + comments +
-                ", tags=" + tags +
-                '}';
-    }
 
     public void setComments(List<Comment> comments) {
         this.comments = comments;
@@ -167,27 +138,21 @@ public class Blog {
         this.updateTime = updateTime;
     }
 
-    public void init() {
-        this.tagIds = tags2Ids(this.getTags());
-    }
 
-    // 将List<Tag> 转为对应的id 即： 1, 2, 3, 4,   用于前端value
-    private String tags2Ids(List<Tag> tags) {
-        int count = 1;
-        if (!tags.isEmpty()) {
-            StringBuffer stringBuffer = new StringBuffer();
-            for (Tag t :
-                    tags) {
-                stringBuffer.append(t.getId());
-                if (count < tags.size()) {
-                    stringBuffer.append(",");
-                    count++;
-                }
-            }
-            return stringBuffer.toString();
-        } else {
-            return tagIds;
-        }
+    @Override
+    public String toString() {
+        return "Blog{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", content='" + content + '\'' +
+                ", description='" + description + '\'' +
+                ", views=" + views +
+                ", published=" + published +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                ", category=" + category +
+                ", comments=" + comments +
+                ", tags=" + tags +
+                '}';
     }
-
 }

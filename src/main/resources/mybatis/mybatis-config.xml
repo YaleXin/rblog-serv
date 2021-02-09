@@ -3,5 +3,10 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-
+<typeAliases>
+    <typeAlias type="top.yalexin.rblog.entity.Blog" alias="Blog"/>
+    <typeAlias type="top.yalexin.rblog.entity.Category" alias="Category"/>
+    <typeAlias type="top.yalexin.rblog.entity.Tag" alias="Tag"/>
+    <typeAlias type="top.yalexin.rblog.entity.Comment" alias="Comment"/>
+</typeAliases>
 </configuration>
