@@ -8,30 +8,18 @@ import java.util.Date;
 import java.util.List;
 
 
-@Entity
-@Table(name = "t_blog") // 指定数据库表名
 public class Blog {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotBlank(message = "标题不能为空")
     private String name;
-    @NotBlank(message = "内容不能为空")
-    @Basic(fetch = FetchType.LAZY)
-    @Lob
     private String content;
-    @Lob
     private String description;
     private Integer views;
     private boolean published;
 
 
-    @Temporal(TemporalType.TIMESTAMP)
     private Date createTime;
-    @Temporal(TemporalType.TIMESTAMP)
     private Date updateTime;
     //    @NotBlank(message = "分类不能为空")
-    @ManyToOne
     private Category category;
 
 
@@ -44,12 +32,10 @@ public class Blog {
     }
 
 
-    @OneToMany(mappedBy = "blog")
     private List<Comment> comments = new ArrayList<>();
 
 
     //    文章中有新标签时，数据库中的标签表也会更新
-    @ManyToMany(cascade = {CascadeType.PERSIST})
     private List<Tag> tags = new ArrayList<>();
 
     public List<Comment> getComments() {
