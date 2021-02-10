@@ -42,4 +42,5 @@ public class AdminBlogController {
         map.put("addBlog", addBlog);
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
+
 }

@@ -91,8 +91,7 @@ public class BlogServiceImpl implements BlogService {
             //若文章的分类是新的分类
             if (category.getId() < 0) {
                 Long aLong = categoryMapper.insertCategory(category);
-                if (aLong == null) return null;
-                else category.setId(aLong);
+                if (aLong == null) throw new DataFormatErrorException();
             }
             List<Tag> tags = blog.getTags();
             // 如果标签中有新的 则插入
@@ -100,8 +99,7 @@ public class BlogServiceImpl implements BlogService {
                 if (tag.getId() < 0) {
                     Long aLong = tagMapper.insertTag(tag);
                     // 插入异常
-                    if (aLong == null) return null;
-                    else tag.setId(aLong);
+                    if (aLong == null) throw new DataFormatErrorException();
                 }
             }
             Long aLong = blogMapper.insertBlog(blog);
