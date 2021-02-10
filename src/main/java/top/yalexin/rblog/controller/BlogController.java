@@ -18,6 +18,7 @@ import top.yalexin.rblog.util.PageResult;
 import java.util.HashMap;
 import java.util.List;
 
+@ResponseBody
 @RestController
 @RequestMapping("/blog")
 public class BlogController {
@@ -27,14 +28,13 @@ public class BlogController {
     @Autowired
     private BlogService blogService;
 
-    @ResponseBody
+
     @GetMapping("/all")
     public List getAllBlogs() {
         System.out.println("getAllBlogs");
         return blogService.getBlogList();
     }
 
-    @ResponseBody
     @GetMapping(value = "/blogPage")
     public ResponseEntity findPage(@RequestParam(value = "pageNum", required = false, defaultValue = "1") String pageNum,
                                    @RequestParam(value = "pageSize", required = false, defaultValue = "1") String pageSize) {
@@ -46,13 +46,11 @@ public class BlogController {
         return new ResponseEntity(map, HttpStatus.OK);
     }
 
-    @ResponseBody
     @GetMapping("/{id}")
     public Blog getOneBlog(@PathVariable("id") Long id) {
         return blogService.getBlogById(id);
     }
 
-    @ResponseBody
     @PutMapping("/put")
     public Blog addOneBlog(@RequestBody Blog blog) {
         return blogService.addBlog(blog);

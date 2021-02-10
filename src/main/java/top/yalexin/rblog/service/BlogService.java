@@ -19,4 +19,8 @@ public interface BlogService {
     Blog getBlogById(Long id);
 
     Blog addBlog(Blog blog);
+
+    Blog updateBlog(Blog blog);
+
+    Long deleteBlogById(Long id);
 }

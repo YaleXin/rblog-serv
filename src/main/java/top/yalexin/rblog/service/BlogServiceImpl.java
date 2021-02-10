@@ -80,7 +80,7 @@ public class BlogServiceImpl implements BlogService {
     public Blog addBlog(Blog blog) {
         try {
             if (!checkBlog(blog)) {
-                return null;
+                throw new DataFormatErrorException();
             }
             Date now = new Date();
             if (blog.getCreateTime().getTime() > now.getTime()) {
@@ -91,7 +91,7 @@ public class BlogServiceImpl implements BlogService {
             //若文章的分类是新的分类
             if (category.getId() < 0) {
                 Long aLong = categoryMapper.insertCategory(category);
-                if (aLong == null) throw new DataFormatErrorException();
+                if (aLong < 0) throw new DataFormatErrorException();
             }
             List<Tag> tags = blog.getTags();
             // 如果标签中有新的 则插入
@@ -99,22 +99,71 @@ public class BlogServiceImpl implements BlogService {
                 if (tag.getId() < 0) {
                     Long aLong = tagMapper.insertTag(tag);
                     // 插入异常
-                    if (aLong == null) throw new DataFormatErrorException();
+                    if (aLong < 0) throw new DataFormatErrorException();
                 }
             }
             Long aLong = blogMapper.insertBlog(blog);
             if (aLong < 1) {
-                return null;
+                throw new DataFormatErrorException();
             }
             for (Tag tag : tags) {
                 // 写入第三张表
-                blogMapper.insertBlogTag(blog.getId(), tag.getId());
+                Long aLong1 = blogMapper.insertBlogTag(blog.getId(), tag.getId());
+                if (aLong1 < 0) throw new DataFormatErrorException();
             }
             return blog;
         } catch (Exception e) {
             logger.error("error --> {}", e.getMessage());
             throw new DataFormatErrorException();
         }
+    }
+
+    @Override
+    public Blog updateBlog(Blog blog) {
+        try {
+            if (!checkBlog(blog)) {
+                throw new DataFormatErrorException();
+            }
+            Date now = new Date();
+            if (blog.getCreateTime().getTime() > now.getTime()) {
+                blog.setCreateTime(now);
+            }
+            blog.setUpdateTime(now);
+            Category category = blog.getCategory();
+            //若文章的分类是新的分类
+            if (category.getId() < 0) {
+                Long aLong = categoryMapper.insertCategory(category);
+                if (aLong < 0) throw new DataFormatErrorException();
+            }
+            List<Tag> tags = blog.getTags();
+            // 如果标签中有新的 则插入
+            for (Tag tag : tags) {
+                if (tag.getId() < 0) {
+                    Long aLong = tagMapper.insertTag(tag);
+                    // 插入异常
+                    if (aLong < 0) new DataFormatErrorException();
+                }
+            }
+            Long aLong = blogMapper.updateBlog(blog);
+
+            // 更新文章时 先全删除该文章的标签，再设置新的标签
+            blogMapper.emptyBlogTags(blog.getId());
+            for (Tag tag : tags) {
+                // 设置新的标签
+                Long insertResult = blogMapper.insertBlogTag(blog.getId(), tag.getId());
+                if (insertResult < 0) throw new DataFormatErrorException();
+            }
+            return blog;
+        } catch (Exception e) {
+            logger.error("error --> {}", e.getMessage());
+            throw new DataFormatErrorException();
+        }
+    }
+
+    @Override
+    public Long deleteBlogById(Long id) {
+        if (id == null || id < 0) return null;
+        return blogMapper.deleteBlog(id);
     }
 
     private boolean checkBlog(Blog blog) {

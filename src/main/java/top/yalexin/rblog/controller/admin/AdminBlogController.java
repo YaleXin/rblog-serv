@@ -12,10 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import top.yalexin.rblog.entity.Blog;
 import top.yalexin.rblog.service.BlogService;
 
@@ -40,6 +37,25 @@ public class AdminBlogController {
         logger.debug("after saveBlog-----> {}", addBlog);
         if (addBlog == null) return new ResponseEntity(null, HttpStatus.BAD_REQUEST);
         map.put("addBlog", addBlog);
+        return new ResponseEntity<>(map, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    ResponseEntity deleteBlog(@PathVariable("id") Long id) {
+        HashMap<Object, Object> map = new HashMap<>();
+        map.put("result", blogService.deleteBlogById(id));
+        return new ResponseEntity<>(map, HttpStatus.OK);
+    }
+
+    @PutMapping("/modify")
+    ResponseEntity modifyBlog(@RequestBody HashMap json) {
+        Blog blog = (Blog) JSON.parseObject(json.get("data").toString(), Blog.class);
+        logger.debug("前端blog-----> {}", blog);
+        HashMap<String, Object> map = new HashMap<>();
+        Blog newBlog = blogService.updateBlog(blog);
+        logger.debug("after editBlog-----> {}", newBlog);
+        if (newBlog == null) return new ResponseEntity(null, HttpStatus.BAD_REQUEST);
+        map.put("newBlog", newBlog);
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
 

@@ -2,6 +2,8 @@ spring:
   profiles:
     active:
       - dev
+  jackson:
+    time-zone: Asia/Shanghai
 mybatis:
   mapper-locations: classpath:mybatis/*Mapper.xml
   config-location: classpath:mybatis/mybatis-config.xml
