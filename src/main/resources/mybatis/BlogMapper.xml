@@ -35,10 +35,21 @@
 
 
     <!--  ****************************************************  -->
-<!--    List<Blog> findAllBlogPage();-->
-    <select id="findAllBlogPage" parameterType="long" resultMap="blogWithCtgrAndTagMap">
+    <!--    List<Blog> findAllBlogPage();-->
+    <!--    <select id="findAllBlogPage" parameterType="long" resultMap="blogWithCtgrAndTagMap">-->
+    <!--        SELECT blog.* ,tag.`name` AS tag_name, ctgr.`name` AS c_name, tag.`id` AS t_id-->
+    <!--        FROM t_blog blog-->
+    <!--        LEFT OUTER JOIN t_blog_tags bt ON blog.`id`=bt.`blogs_id`-->
+    <!--        LEFT OUTER JOIN t_tag tag ON bt.`tags_id` = tag.`id`-->
+    <!--        LEFT OUTER JOIN t_category ctgr ON blog.`category_id` = ctgr.`id`-->
+    <!--        ORDER BY create_time DESC-->
+    <!--    </select>-->
+
+    <select id="findBlogByInterval" parameterType="java.lang.Long" resultMap="blogWithCtgrAndTagMap">
         SELECT blog.* ,tag.`name` AS tag_name, ctgr.`name` AS c_name, tag.`id` AS t_id
-        FROM t_blog blog
+        FROM (
+	        SELECT * FROM t_blog ORDER BY create_time DESC  LIMIT #{startIndex}, #{size}
+        )  blog
         LEFT OUTER JOIN t_blog_tags bt ON blog.`id`=bt.`blogs_id`
         LEFT OUTER JOIN t_tag tag ON bt.`tags_id` = tag.`id`
         LEFT OUTER JOIN t_category ctgr ON blog.`category_id` = ctgr.`id`

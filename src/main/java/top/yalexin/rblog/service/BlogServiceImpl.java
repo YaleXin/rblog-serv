@@ -4,8 +4,6 @@
  **/
 package top.yalexin.rblog.service;
 
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +17,10 @@ import top.yalexin.rblog.exception.DataFormatErrorException;
 import top.yalexin.rblog.mapper.BlogMapper;
 import top.yalexin.rblog.mapper.CategoryMapper;
 import top.yalexin.rblog.mapper.TagMapper;
-import top.yalexin.rblog.util.PageRequest;
-import top.yalexin.rblog.util.PageResult;
 import top.yalexin.rblog.util.PageUtils;
+import top.yalexin.rblog.util.PageResult;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -44,17 +42,27 @@ public class BlogServiceImpl implements BlogService {
         return blogMapper.findAllBlog();
     }
 
+    /**
+     * @param requestPageNum  从1开始
+     * @param requestPageSize
+     * @return
+     */
     @Override
-    public PageResult getBlogByPage(PageRequest pageRequest) {
-        return PageUtils.getPageResult(pageRequest, getPageInfo(pageRequest));
+    public PageResult getBlogByPage(Long requestPageNum, Long requestPageSize) {
+        Long totalSize = blogMapper.countBlog();
+        // 前端传来的 size 若为非正数，则默认 size=1
+        long pageSize = Math.max(requestPageSize, 1);
+        // 前端传来的页面编号若非数， 则默认 请求第一页
+        long pageNum = requestPageNum > 0 ? (requestPageNum - 1) : 0;
+
+        long totalPage = totalSize / pageSize;
+
+        List<Blog> blogs = blogMapper.findBlogByInterval(pageNum * pageSize, pageSize);
+        // 加一 是方便前端
+        PageResult pageResult = PageUtils.setResult(blogs, pageNum + 1, pageSize, totalPage, totalSize);
+        return pageResult;
     }
 
-    @Override
-    public PageResult getBlogByPage(Integer pageNum, Integer pageSize) {
-        PageRequest pageRequest = new PageRequest();
-        pageRequest.setPageNum(pageNum).setPageSize(pageSize);
-        return PageUtils.getPageResult(pageRequest, getPageInfo(pageRequest));
-    }
 
     @Override
     public Blog getBlogById(Long id) {
@@ -131,26 +139,5 @@ public class BlogServiceImpl implements BlogService {
         return true;
     }
 
-    /**
-     * 调用分页插件完成分页
-     *
-     * @param pageRequest
-     * @return
-     */
-    private PageInfo<Blog> getPageInfo(PageRequest pageRequest) {
-        int pageNum = pageRequest.getPageNum();
-        int pageSize = pageRequest.getPageSize();
-        PageHelper.startPage(pageNum, pageSize);
-        List<Blog> sysMenus = blogMapper.findAllBlogPage();
-        return new PageInfo<Blog>(sysMenus);
-    }
 
-    private PageInfo<Blog> getPageInfo(Integer pageNum, Integer pageSize) {
-        PageRequest pageRequest = new PageRequest();
-        pageRequest.setPageNum(pageNum).setPageSize(pageSize);
-        PageHelper.startPage(pageNum, pageSize);
-        PageHelper.startPage(pageNum, pageSize);
-        List<Blog> sysMenus = blogMapper.findAllBlogPage();
-        return new PageInfo<Blog>(sysMenus);
-    }
 }

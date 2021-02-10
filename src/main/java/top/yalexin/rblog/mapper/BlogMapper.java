@@ -16,7 +16,7 @@ public interface BlogMapper {
     List<Blog> findAllBlog();
 
     // 分页大小、页码数由插件自动生成
-    List<Blog> findAllBlogPage();
+//    List<Blog> findAllBlogPage();
 
     Blog findBlog(long id);
 
@@ -28,4 +28,9 @@ public interface BlogMapper {
 
     @Insert("insert into t_blog_tags(blogs_id,tags_id) values(#{blogId}, #{tagId})")
     void insertBlogTag(Long blogId, Long tagId);
+
+    List<Blog> findBlogByInterval(Long startIndex, Long size);
+
+    @Select("select count(id) from t_blog")
+    Long countBlog();
 }

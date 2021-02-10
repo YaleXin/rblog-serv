@@ -4,7 +4,6 @@
  **/
 package top.yalexin.rblog.controller;
 
-import com.alibaba.fastjson.JSON;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import top.yalexin.rblog.entity.Blog;
 import top.yalexin.rblog.service.BlogService;
 import top.yalexin.rblog.service.BlogServiceImpl;
-import top.yalexin.rblog.util.PageRequest;
 import top.yalexin.rblog.util.PageResult;
 
 import java.util.HashMap;
@@ -29,31 +27,23 @@ public class BlogController {
     @Autowired
     private BlogService blogService;
 
-    @Autowired
-    private BlogServiceImpl blogServiceImpl;
-
     @ResponseBody
     @GetMapping("/all")
     public List getAllBlogs() {
         System.out.println("getAllBlogs");
-        return blogServiceImpl.getBlogList();
+        return blogService.getBlogList();
     }
 
     @ResponseBody
-    @PostMapping(value = "/blogPage")
+    @GetMapping(value = "/blogPage")
     public ResponseEntity findPage(@RequestParam(value = "pageNum", required = false, defaultValue = "1") String pageNum,
-                                   @RequestParam(value = "pageSize", required = false, defaultValue = "5") String pageSize) {
-
-//        PageRequest pageQuery = JSON.parseObject(json.get("data").toString(), PageRequest.class);
-//        logger.info("pageQuery = {}" + pageQuery);
-//        PageResult blogByPage = blogService.getBlogByPage(pageQuery);
-        Integer pageNumI = Integer.parseInt(pageNum);
-        Integer pageSizeI = Integer.parseInt(pageSize);
-        PageResult blogByPage = blogService.getBlogByPage(1, 5);
+                                   @RequestParam(value = "pageSize", required = false, defaultValue = "1") String pageSize) {
+        long pageNumL = Long.parseLong(pageNum);
+        long pageSizeL = Long.parseLong(pageSize);
+        PageResult blogByPage = blogService.getBlogByPage(pageNumL, pageSizeL);
         HashMap<String, Object> map = new HashMap<>();
         map.put("page", blogByPage);
-        return new ResponseEntity<>(map, HttpStatus.OK);
-
+        return new ResponseEntity(map, HttpStatus.OK);
     }
 
     @ResponseBody
