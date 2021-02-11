@@ -18,4 +18,20 @@ public interface CategoryMapper {
     @Insert("insert into t_category(name) values(#{name})")
     @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
     public Long insertCategory(Category category);
+
+    @Select("select count(id) from t_category")
+    Long countCategory();
+
+    @Select("select * from t_category limit #{startIndex},#{size}")
+    List<Category> findCategoryByInterval(Long startIndex, Long size);
+
+
+    @Update("update t_category set name=#{name} where id=#{id}")
+    @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
+    Long updateCategory(Category category);
+
+    @Delete("delete from t_category where id=#{categoryId}")
+    Long deleteCategory(Long categoryId);
+
+
 }

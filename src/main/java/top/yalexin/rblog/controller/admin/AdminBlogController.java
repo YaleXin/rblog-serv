@@ -24,9 +24,9 @@ import java.util.HashMap;
 public class AdminBlogController {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
-
     @Autowired
     private BlogService blogService;
+
 
     @PutMapping("/add")
     ResponseEntity addBlog(@RequestBody HashMap json) {
