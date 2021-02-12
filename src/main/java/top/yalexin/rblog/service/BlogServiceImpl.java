@@ -17,6 +17,7 @@ import top.yalexin.rblog.exception.DataFormatErrorException;
 import top.yalexin.rblog.mapper.BlogMapper;
 import top.yalexin.rblog.mapper.CategoryMapper;
 import top.yalexin.rblog.mapper.TagMapper;
+import top.yalexin.rblog.util.MarkdownUtils;
 import top.yalexin.rblog.util.PageUtils;
 import top.yalexin.rblog.util.PageResult;
 
@@ -63,11 +64,38 @@ public class BlogServiceImpl implements BlogService {
         return pageResult;
     }
 
+    @Override
+    public PageResult getBlogByPageAndCategoryId(Long requestPageNum, Long requestPageSize, Long categoryId) {
+        Long totalSize = blogMapper.countBlogByCategory(categoryId);
+        // 前端传来的 size 若为非正数，则默认 size=1
+        long pageSize = Math.max(requestPageSize, 1);
+        // 前端传来的页面编号若非数， 则默认 请求第一页
+        long pageNum = requestPageNum > 0 ? (requestPageNum - 1) : 0;
+
+        long totalPage = totalSize / pageSize;
+
+        List<Blog> blogs = blogMapper.findBlogWithCategoryByInterval(pageNum * pageSize, pageSize, categoryId);
+
+        PageResult pageResult = PageUtils.setResult(blogs, pageNum + 1, pageSize, totalPage, totalSize);
+        return pageResult;
+    }
+
 
     @Override
     public Blog getBlogById(Long id) {
         if (id == null || id < 0) return null;
         else return blogMapper.findBlog(id);
+    }
+
+    @Override
+    public Blog getParsedBlogById(Long id) {
+        if(id == null || id < 0)return null;
+        Blog rawBlog = blogMapper.findBlog(id);
+        if (rawBlog != null){
+        String markdownContent = MarkdownUtils.markdownToHtmlExtensions(rawBlog.getContent());
+        rawBlog.setContent(markdownContent);
+        }
+        return rawBlog;
     }
 
     /**

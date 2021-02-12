@@ -59,4 +59,9 @@ public class AdminBlogController {
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
+    @GetMapping("/{id}")
+    public Blog getOneBlog(@PathVariable("id") Long id) {
+        return blogService.getBlogById(id);
+    }
+
 }

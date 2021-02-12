@@ -47,8 +47,10 @@ public class BlogController {
     }
 
     @GetMapping("/{id}")
-    public Blog getOneBlog(@PathVariable("id") Long id) {
-        return blogService.getBlogById(id);
+    public ResponseEntity getOneBlog(@PathVariable("id") Long id) {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("blog", blogService.getParsedBlogById(id));
+        return new ResponseEntity(map, HttpStatus.OK);
     }
 
     @PutMapping("/put")

@@ -17,7 +17,7 @@ public interface BlogMapper {
 
     Blog findBlog(long id);
 
-    //------------------------
+    //****************       新增文章时有可能同时新增标签         **************
 
     @Insert("insert into t_blog(name,content,description, create_time, update_time,category_id) values" +
             "(#{name},#{content},#{description}, #{createTime}, #{updateTime}, #{category.id})")
@@ -28,7 +28,7 @@ public interface BlogMapper {
     @Insert("insert into t_blog_tags(blogs_id,tags_id) values(#{blogId}, #{tagId})")
     Long insertBlogTag(Long blogId, Long tagId);
 
-    //--------------------------
+    //************************** 更改文章时有可能同时新增标签 *************************8
 
 
     @Update("update t_blog set name=#{name},content=#{content},description=#{description}, create_time=#{createTime}, update_time=#{updateTime}, category_id=#{category.id} where id=#{id}")
@@ -40,7 +40,7 @@ public interface BlogMapper {
     @Delete("DELETE FROM t_blog_tags WHERE blogs_id=#{blogId}")
     Long emptyBlogTags(Long blogId);
 
-    //---------------
+    //****************************88
 
     List<Blog> findBlogByInterval(Long startIndex, Long size);
 
@@ -50,5 +50,10 @@ public interface BlogMapper {
     @Delete("delete from t_blog where id=#{id}")
     Long deleteBlog(Long id);
 
+//**************   根据分页进行选取某个分类下的文章  *****************
+    @Select("select count(id) from t_blog where category_id=#{categoryId}")
+    Long countBlogByCategory(Long categoryId);
 
+    List<Blog> findBlogWithCategoryByInterval(Long startIndex, Long size, Long categoryId);
+//*********************************88
 }
