@@ -50,10 +50,24 @@ public interface BlogMapper {
     @Delete("delete from t_blog where id=#{id}")
     Long deleteBlog(Long id);
 
-//**************   根据分页进行选取某个分类下的文章  *****************
+    //**************   根据分页进行选取某个分类下的文章  *****************
     @Select("select count(id) from t_blog where category_id=#{categoryId}")
     Long countBlogByCategory(Long categoryId);
 
     List<Blog> findBlogWithCategoryByInterval(Long startIndex, Long size, Long categoryId);
-//*********************************88
+
+    //********************************
+//**************   根据分页进行选取某个标签下的文章  *****************
+    @Select("select count(blogs_id) from t_blog_tags where tags_id=#{tagId}")
+    Long countBlogByTag(Long tagId);
+
+    List<Blog> findBlogWithTagByInterval(Long startIndex, Long size, Long tagId);
+//********************************
+
+    //    *****************   查询所有文章对应的月份  *******************
+    @Select("SELECT DATE_FORMAT(blog.`create_time`, '%Y%m') year_months FROM t_blog blog  GROUP BY year_months ORDER BY year_months DESC")
+    List<Long> countBlogYearMonth();
+
+    @Select("select blog.name,blog.create_time createTime, blog.id id from t_blog blog where date_format(blog.create_time, '%Y%m')=#{yearMonth} order by blog.create_time desc")
+    List<Blog> findBlogYearMonth(Long yearMonth);
 }

@@ -10,6 +10,7 @@ import top.yalexin.rblog.util.PageResult;
 //import top.yalexin.rblog.util.PageResult;
 
 import java.util.List;
+import java.util.Map;
 
 public interface BlogService {
     List<Blog> getBlogList();
@@ -18,6 +19,7 @@ public interface BlogService {
 
     PageResult getBlogByPageAndCategoryId(Long pageNum, Long pageSize, Long categoryId);
 
+    PageResult getBlogByPageAndTagId(Long pageNum, Long pageSize, Long tagId);
 
     Blog getBlogById(Long id);
     // 返回解析 markdown 语法后的博客文章
@@ -28,6 +30,7 @@ public interface BlogService {
     Blog updateBlog(Blog blog);
 
     Long deleteBlogById(Long id);
+
 
 
 }

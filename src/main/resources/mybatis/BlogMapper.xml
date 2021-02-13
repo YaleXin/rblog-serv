@@ -50,11 +50,27 @@
     <select id="findBlogWithCategoryByInterval" parameterType="java.lang.Long" resultMap="blogWithCtgrAndTagMap">
         SELECT blog.* ,tag.`name` AS tag_name, ctgr.`name` AS c_name, tag.`id` AS t_id
         FROM (
+--         先选出某个分类下的文章 再连接其他表进行查询分类的name和标签的name
                  SELECT * FROM t_blog where category_id=#{categoryId} ORDER BY create_time DESC  LIMIT #{startIndex}, #{size}
              )  blog
          LEFT OUTER JOIN t_blog_tags bt ON blog.`id`=bt.`blogs_id`
          LEFT OUTER JOIN t_tag tag ON bt.`tags_id` = tag.`id`
          LEFT OUTER JOIN t_category ctgr ON blog.`category_id` = ctgr.`id`
-ORDER BY create_time DESC
-</select>
+        ORDER BY create_time DESC
+    </select>
+    <!--    List<Blog> findBlogWithTagByInterval(Long startIndex, Long size, Long tagId);-->
+    <select id="findBlogWithTagByInterval" parameterType="java.lang.Long" resultMap="blogWithCtgrAndTagMap">
+        SELECT blog.* ,tag.`name` AS tag_name, ctgr.`name` AS c_name, tag.`id` AS t_id
+        FROM (
+         select b.* from
+             (select * from t_blog_tags where tags_id=#{tagId} limit #{startIndex},#{size}) b_t
+                 left outer join t_blog b on b_t.blogs_id = b.id
+         )  blog
+         LEFT OUTER JOIN t_blog_tags bt ON blog.`id`=bt.`blogs_id`
+         LEFT OUTER JOIN t_tag tag ON bt.`tags_id` = tag.`id`
+         LEFT OUTER JOIN t_category ctgr ON blog.`category_id` = ctgr.`id`
+        ORDER BY create_time DESC
+    </select>
+
+
 </mapper>

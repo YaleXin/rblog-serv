@@ -27,7 +27,7 @@ public class CategoryController {
     private BlogService blogService;
 
     @GetMapping("/all")
-    ResponseEntity getAllCategories() {
+    ResponseEntity getPageBlogByCategory() {
         List<Category> categories = categoryService.getCategoryList();
         HashMap<String, Object> map = new HashMap<>();
         map.put("categories", categories);
@@ -35,9 +35,9 @@ public class CategoryController {
     }
 
     @GetMapping("/{categoryId}")
-    ResponseEntity getAllCategories(@PathVariable("categoryId") Long categoryId,
-                                    @RequestParam(value = "pageNum", required = false, defaultValue = "1") String pageNum,
-                                    @RequestParam(value = "pageSize", required = false, defaultValue = "1") String pageSize) {
+    ResponseEntity getPageBlogByCategory(@PathVariable("categoryId") Long categoryId,
+                                         @RequestParam(value = "pageNum", required = false, defaultValue = "1") String pageNum,
+                                         @RequestParam(value = "pageSize", required = false, defaultValue = "1") String pageSize) {
         long pageNumL = Long.parseLong(pageNum);
         long pageSizeL = Long.parseLong(pageSize);
 

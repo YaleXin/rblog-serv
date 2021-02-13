@@ -21,9 +21,7 @@ import top.yalexin.rblog.util.MarkdownUtils;
 import top.yalexin.rblog.util.PageUtils;
 import top.yalexin.rblog.util.PageResult;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Transactional
 @Service
@@ -80,6 +78,22 @@ public class BlogServiceImpl implements BlogService {
         return pageResult;
     }
 
+    @Override
+    public PageResult getBlogByPageAndTagId(Long requestPageNum, Long requestPageSize, Long tagId) {
+        Long totalSize = blogMapper.countBlogByTag(tagId);
+        // 前端传来的 size 若为非正数，则默认 size=1
+        long pageSize = Math.max(requestPageSize, 1);
+        // 前端传来的页面编号若非数， 则默认 请求第一页
+        long pageNum = requestPageNum > 0 ? (requestPageNum - 1) : 0;
+
+        long totalPage = totalSize / pageSize;
+
+        List<Blog> blogs = blogMapper.findBlogWithTagByInterval(pageNum * pageSize, pageSize, tagId);
+
+        PageResult pageResult = PageUtils.setResult(blogs, pageNum + 1, pageSize, totalPage, totalSize);
+        return pageResult;
+    }
+
 
     @Override
     public Blog getBlogById(Long id) {
@@ -89,11 +103,11 @@ public class BlogServiceImpl implements BlogService {
 
     @Override
     public Blog getParsedBlogById(Long id) {
-        if(id == null || id < 0)return null;
+        if (id == null || id < 0) return null;
         Blog rawBlog = blogMapper.findBlog(id);
-        if (rawBlog != null){
-        String markdownContent = MarkdownUtils.markdownToHtmlExtensions(rawBlog.getContent());
-        rawBlog.setContent(markdownContent);
+        if (rawBlog != null) {
+            String markdownContent = MarkdownUtils.markdownToHtmlExtensions(rawBlog.getContent());
+            rawBlog.setContent(markdownContent);
         }
         return rawBlog;
     }
@@ -193,6 +207,8 @@ public class BlogServiceImpl implements BlogService {
         if (id == null || id < 0) return null;
         return blogMapper.deleteBlog(id);
     }
+
+
 
     private boolean checkBlog(Blog blog) {
         if (blog == null) return false;
