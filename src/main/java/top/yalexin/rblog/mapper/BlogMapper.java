@@ -40,8 +40,8 @@ public interface BlogMapper {
     @Delete("DELETE FROM t_blog_tags WHERE blogs_id=#{blogId}")
     Long emptyBlogTags(Long blogId);
 
-    //****************************88
-
+    //****************************
+//分页查询
     List<Blog> findBlogByInterval(Long startIndex, Long size);
 
     @Select("select count(id) from t_blog")
@@ -70,4 +70,11 @@ public interface BlogMapper {
 
     @Select("select blog.name,blog.create_time createTime, blog.id id from t_blog blog where date_format(blog.create_time, '%Y%m')=#{yearMonth} order by blog.create_time desc")
     List<Blog> findBlogYearMonth(Long yearMonth);
+
+    //    *****************  根据内容或者标题进行模糊分页查询 *******************
+    @Select("SELECT count(id) FROM t_blog where name like #{nameOrContent} or content like #{nameOrContent}")
+    Long countBlogLikeNameOrContent(String nameOrContent);
+
+    List<Blog> findBlogByIntervalAndNameOrContent(Long startIndex, Long size, String nameOrContent);
+//********************************************************************************************
 }

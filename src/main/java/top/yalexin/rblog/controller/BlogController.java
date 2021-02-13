@@ -58,4 +58,16 @@ public class BlogController {
         return blogService.addBlog(blog);
     }
 
+    @GetMapping("/search")
+    public ResponseEntity getBlogListBySearch(@RequestParam(value = "nameOrcontent", required = false, defaultValue = "1") String nameOrcontent,
+                                              @RequestParam(value = "pageNum", required = false, defaultValue = "1") String pageNum,
+                                              @RequestParam(value = "pageSize", required = false, defaultValue = "1") String pageSize) {
+        long pageNumL = Long.parseLong(pageNum);
+        long pageSizeL = Long.parseLong(pageSize);
+        HashMap<String, Object> map = new HashMap<>();
+        PageResult page = blogService.getBlogByIntervalAndNameOrContent(pageNumL, pageSizeL, nameOrcontent);
+        map.put("page", page);
+        return new ResponseEntity(map, HttpStatus.OK);
+    }
+
 }

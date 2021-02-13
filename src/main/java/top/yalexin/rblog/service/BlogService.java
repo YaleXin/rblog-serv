@@ -17,11 +17,14 @@ public interface BlogService {
 
     PageResult getBlogByPage(Long pageNum, Long pageSize);
 
+    PageResult getBlogByIntervalAndNameOrContent(Long pageNum, Long pageSize, String nameOrContent);
+
     PageResult getBlogByPageAndCategoryId(Long pageNum, Long pageSize, Long categoryId);
 
     PageResult getBlogByPageAndTagId(Long pageNum, Long pageSize, Long tagId);
 
     Blog getBlogById(Long id);
+
     // 返回解析 markdown 语法后的博客文章
     Blog getParsedBlogById(Long id);
 
@@ -30,7 +33,6 @@ public interface BlogService {
     Blog updateBlog(Blog blog);
 
     Long deleteBlogById(Long id);
-
 
 
 }

@@ -72,5 +72,16 @@
         ORDER BY create_time DESC
     </select>
 
+<!--    List<Blog> findBlogByIntervalAndNameOrContent(Long startIndex, Long size, String nameOrContent);-->
+    <select id="findBlogByIntervalAndNameOrContent"  resultMap="blogWithCtgrAndTagMap">
+        SELECT blog.* ,tag.`name` AS tag_name, ctgr.`name` AS c_name, tag.`id` AS t_id
+        FROM (
+	        SELECT * FROM t_blog where name like #{nameOrContent} or content like #{nameOrContent} ORDER BY create_time DESC  LIMIT #{startIndex}, #{size}
+        )  blog
+        LEFT OUTER JOIN t_blog_tags bt ON blog.`id`=bt.`blogs_id`
+        LEFT OUTER JOIN t_tag tag ON bt.`tags_id` = tag.`id`
+        LEFT OUTER JOIN t_category ctgr ON blog.`category_id` = ctgr.`id`
+        ORDER BY create_time DESC
+    </select>
 
 </mapper>
