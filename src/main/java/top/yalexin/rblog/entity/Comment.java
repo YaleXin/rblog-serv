@@ -10,30 +10,67 @@ public class Comment {
     private Long id;
     private String nickname;
     private String email;
-    private String avatar;
     private String content;
     private Date createTime;
-
     private boolean audited;
-
+    private String OS;
+    private String browser;
     private boolean sendEmailed;
+    private boolean adminComment;
+    private Long blogId;
+    private List<Comment> replyComments;
+    //父级评论
+    private Long parentCommentId;
+    // 所艾特的昵称
+    private String replyNickname;
+    private String blogName;
 
-    @Override
-    public String toString() {
-        return "Comment{" +
-                "id=" + id +
-                ", nickname='" + nickname + '\'' +
-                ", email='" + email + '\'' +
-                ", avatar='" + avatar + '\'' +
-                ", content='" + content + '\'' +
-                ", createTime=" + createTime +
-                ", audited=" + audited +
-                ", sendEmailed=" + sendEmailed +
-                ", adminComment=" + adminComment +
-                ", blog=" + blog +
-                ", replyComments=" + replyComments +
-                ", parentComment=" + parentComment +
-                '}';
+    public String getBlogName() {
+        return blogName;
+    }
+
+    public void setBlogName(String blogName) {
+        this.blogName = blogName;
+    }
+
+    public String getOS() {
+        return OS;
+    }
+
+    public void setOS(String OS) {
+        this.OS = OS;
+    }
+
+    public String getBrowser() {
+        return browser;
+    }
+
+    public void setBrowser(String browser) {
+        this.browser = browser;
+    }
+
+    public String getReplyNickname() {
+        return replyNickname;
+    }
+
+    public void setReplyNickname(String replyNickname) {
+        this.replyNickname = replyNickname;
+    }
+
+    public Long getBlogId() {
+        return blogId;
+    }
+
+    public void setBlogId(Long blogId) {
+        this.blogId = blogId;
+    }
+
+    public Long getParentCommentId() {
+        return parentCommentId;
+    }
+
+    public void setParentCommentId(Long parentCommentId) {
+        this.parentCommentId = parentCommentId;
     }
 
     public boolean isSendEmailed() {
@@ -52,7 +89,6 @@ public class Comment {
         this.audited = audited;
     }
 
-    private boolean adminComment;
 
     public boolean isAdminComment() {
         return adminComment;
@@ -62,16 +98,6 @@ public class Comment {
         this.adminComment = adminComment;
     }
 
-    @ManyToOne
-    private Blog blog;
-    @OneToMany(mappedBy = "parentComment")
-    private List<Comment> replyComments = new ArrayList<>();
-    @ManyToOne
-    private Comment parentComment;
-
-    public Blog getBlog() {
-        return blog;
-    }
 
     public List<Comment> getReplyComments() {
         return replyComments;
@@ -81,19 +107,28 @@ public class Comment {
         this.replyComments = replyComments;
     }
 
-    public Comment getParentComment() {
-        return parentComment;
-    }
-
-    public void setParentComment(Comment parentComment) {
-        this.parentComment = parentComment;
-    }
-
-    public void setBlog(Blog blog) {
-        this.blog = blog;
-    }
 
     public Comment() {
+    }
+
+    @Override
+    public String toString() {
+        return "Comment{" +
+                "id=" + id +
+                ", nickname='" + nickname + '\'' +
+                ", email='" + email + '\'' +
+                ", content='" + content + '\'' +
+                ", createTime=" + createTime +
+                ", audited=" + audited +
+                ", OS='" + OS + '\'' +
+                ", browser='" + browser + '\'' +
+                ", sendEmailed=" + sendEmailed +
+                ", adminComment=" + adminComment +
+                ", blogId=" + blogId +
+                ", replyComments=" + replyComments +
+                ", parentCommentId=" + parentCommentId +
+                ", replyNickname='" + replyNickname + '\'' +
+                '}';
     }
 
     public Long getId() {
@@ -118,14 +153,6 @@ public class Comment {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getAvatar() {
-        return avatar;
-    }
-
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
     }
 
     public String getContent() {
