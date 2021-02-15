@@ -4,23 +4,18 @@
  **/
 package top.yalexin.rblog.service;
 
-import top.yalexin.rblog.entity.UserDO;
+import top.yalexin.rblog.entity.User;
 
-import java.util.List;
-import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 public interface UserService {
-    UserDO get(Integer id);
 
-    List<UserDO> list(Map<String, Object> map);
+    User getUser(HttpServletRequest request, HttpServletResponse response);
 
-    int count(Map<String, Object> map);
+    int login(User user, String salt, HttpServletRequest request, HttpServletResponse response);
 
-    int save(UserDO user);
+    int logout(HttpServletRequest request, HttpServletResponse response);
 
-    int update(UserDO user);
-
-    int remove(Integer id);
-
-    int batchRemove(Integer[] ids);
+    Long updateByUsernameAndPsw(String newPsw, String username, String oldPsw, HttpServletRequest request);
 }

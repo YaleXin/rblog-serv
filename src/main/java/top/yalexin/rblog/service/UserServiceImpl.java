@@ -6,50 +6,84 @@ package top.yalexin.rblog.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import top.yalexin.rblog.entity.UserDO;
-import top.yalexin.rblog.dao.UserDao;
+import org.springframework.transaction.annotation.Transactional;
+import top.yalexin.rblog.entity.User;
+import top.yalexin.rblog.mapper.UserMapper;
+import top.yalexin.rblog.util.MD5Utils;
 
-import java.util.List;
-import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+@Transactional
 @Service
 public class UserServiceImpl implements UserService {
-    @Autowired(required = false)
-    private UserDao userDao;
+    @Autowired
+    UserMapper userMapper;
 
     @Override
-    public UserDO get(Integer id){
-        return userDao.get(id);
+    public User getUser(HttpServletRequest request, HttpServletResponse response) {
+
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        return user;
+    }
+
+    /**
+     * @param user     前端传过来的user
+     * @param salt     随机密令
+     * @param request
+     * @param response
+     * @return 0: 登录成功，1：用户不存在，2：密码错误
+     */
+    @Override
+    public int login(User user, String salt, HttpServletRequest request, HttpServletResponse response) {
+        final int LOGIN_SUCCESS = 0, USER_NOT_EXIST = 1, PSW_ERROR = 2;
+        if (user == null || user.getUsername() == null || "".equals(user.getUsername().trim())) {
+            return USER_NOT_EXIST;
+        }
+        User databaseUser = userMapper.findUser(user.getUsername());
+        if (databaseUser == null) return USER_NOT_EXIST;
+        // 前端传过来的密码是 md5(md5(md5(psw)) + salt)
+        // 数据库中的是 md5(md5(psw))
+        String saltCode = MD5Utils.code(databaseUser.getPassword() + salt);
+        if (user.getPassword().equals(saltCode)) {
+            // 将密码设为空 防止前端拿到密码
+            databaseUser.setPassword("");
+            request.getSession().setAttribute("user", databaseUser);
+            return LOGIN_SUCCESS;
+        } else {
+            return PSW_ERROR;
+        }
+
     }
 
     @Override
-    public List<UserDO> list(Map<String, Object> map){
-        return userDao.list(map);
+    public int logout(HttpServletRequest request,
+                      HttpServletResponse response) {
+        HttpSession session = request.getSession();
+        Object user = session.getAttribute("user");
+        if (user == null) {
+            return 0;
+        } else {
+            session.removeAttribute("user");
+            return 1;
+        }
     }
 
     @Override
-    public int count(Map<String, Object> map){
-        return userDao.count(map);
+    public Long updateByUsernameAndPsw(String newPsw, String username, String oldPsw, HttpServletRequest request) {
+        if (newPsw == null || username == null || oldPsw == null ||
+                "".equals(newPsw.trim()) || "".equals(username.trim()) || "".equals(oldPsw.trim())) {
+            return Long.valueOf(0);
+        }
+        String md5newPsw = MD5Utils.code(newPsw);
+        String md5old = MD5Utils.code(oldPsw);
+        Long updateResult = userMapper.updateUser(md5newPsw, username, md5old);
+        if (updateResult == null) return Long.valueOf(0);
+        else {
+            request.getSession().removeAttribute("user");
+            return updateResult;
+        }
     }
-
-    @Override
-    public int save(UserDO user){
-        return userDao.save(user);
-    }
-
-    @Override
-    public int update(UserDO user){
-        return userDao.update(user);
-    }
-
-    @Override
-    public int remove(Integer id){
-        return userDao.remove(id);
-    }
-
-    @Override
-    public int batchRemove(Integer[] ids){
-        return userDao.batchRemove(ids);
-    }
-
 }
