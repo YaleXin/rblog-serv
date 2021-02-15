@@ -16,6 +16,7 @@ import top.yalexin.rblog.entity.Blog;
 import top.yalexin.rblog.entity.Comment;
 import top.yalexin.rblog.service.CommentService;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 
@@ -30,13 +31,12 @@ public class CommentController {
     CommentService commentService;
 
     @PutMapping("/add")
-    ResponseEntity addComment(@RequestBody HashMap json) {
+    ResponseEntity addComment(@RequestBody HashMap json, HttpServletRequest request) {
         Comment comment = JSON.parseObject(json.get("data").toString(), Comment.class);
-       logger.debug("put comment ---------> {}", comment);
+        logger.debug("put comment ---------> {}", comment);
         HashMap<String, Object> map = new HashMap<>();
-        Comment addComment = commentService.addComment(comment);
-        if (addComment == null) return new ResponseEntity(null, HttpStatus.BAD_REQUEST);
-        map.put("addComment", addComment);
+        int result = commentService.addComment(comment, request);
+        map.put("result", result);
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
 

@@ -15,6 +15,9 @@ import top.yalexin.rblog.mapper.CommentMapper;
 import top.yalexin.rblog.util.PageResult;
 import top.yalexin.rblog.util.PageUtils;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -28,12 +31,37 @@ public class CommentServiceImpl implements CommentService {
     @Autowired
     CommentMapper commentMapper;
 
+    /**
+     *
+     * @param comment
+     * @param request
+     * @return 0：写入数据库失败，1：写入成功，2：时间间隔过小
+     */
     @Override
-    public Comment addComment(Comment comment) {
-        if (commentMapper == null) return null;
-        Long result = commentMapper.insertComment(comment);
-        if (result == null || result < 0) return null;
-        return comment;
+    public int addComment(Comment comment, HttpServletRequest request) {
+        if (commentMapper == null) return 0;
+        HttpSession session = request.getSession();
+        Date lastCmtTime = (Date) session.getAttribute("lastCmtTime");
+        Date now = new Date();
+        if (lastCmtTime == null) {
+            Long result = commentMapper.insertComment(comment);
+            if (result == null || result <= 0) return 0;
+            else {
+                session.setAttribute("lastCmtTime", now);
+                return 1;
+            }
+        } else {
+            long dist = now.getTime() - lastCmtTime.getTime();
+            if (dist < 60 * 1000) {
+                return 2;
+            }
+            Long result = commentMapper.insertComment(comment);
+            if (result == null || result <= 0) return 0;
+            else {
+                session.setAttribute("lastCmtTime", now);
+                return 1;
+            }
+        }
     }
 
     @Override
@@ -62,19 +90,19 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public Long acceptCommentByCommentId(Long commentId) {
-        if(commentId == null || commentId < 0)return null;
+        if (commentId == null || commentId < 0) return null;
         return commentMapper.acceptComment(commentId);
     }
 
     @Override
     public Long rejectCommentByCommentId(Long commentId) {
-        if(commentId == null || commentId < 0)return null;
+        if (commentId == null || commentId < 0) return null;
         return commentMapper.rejectComment(commentId);
     }
 
     @Override
     public Long deleteCommentByCommentId(Long commentId) {
-        if(commentId == null || commentId < 0)return null;
+        if (commentId == null || commentId < 0) return null;
         return commentMapper.deleteComment(commentId);
     }
 
