@@ -124,6 +124,7 @@ public class BlogServiceImpl implements BlogService {
         if (rawBlog != null) {
             String markdownContent = MarkdownUtils.markdownToHtmlExtensions(rawBlog.getContent());
             rawBlog.setContent(markdownContent);
+            blogMapper.updateBlogViews(rawBlog.getId());
         }
         return rawBlog;
     }

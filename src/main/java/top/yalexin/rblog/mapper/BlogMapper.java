@@ -76,5 +76,9 @@ public interface BlogMapper {
     Long countBlogLikeNameOrContent(String nameOrContent);
 
     List<Blog> findBlogByIntervalAndNameOrContent(Long startIndex, Long size, String nameOrContent);
-//********************************************************************************************
+
+    //********************************************************************************************
+    @Update("update t_blog set views=views+1 where id=#{blogId}")
+    Long updateBlogViews(Long blogId);
+
 }

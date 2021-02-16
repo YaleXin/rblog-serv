@@ -1,0 +1,44 @@
+{
+  "links": [
+    {
+      "id": 1,
+      "type": "博客链接",
+      "content": [
+        {
+          "id": 1,
+          "name": "黄阿信的博客",
+          "description": "要么改变世界，要么适应世界",
+          "url": "www.yalexin.com",
+          "avatar": "https://www.yalexin.top/images/cat_mouse.jpg"
+        },
+        {
+          "id": 2,
+          "name": "黄阿信的hexo博客",
+          "description": "要么改变世界，要么适应世界",
+          "url": "yalexin.gitee.io/",
+          "avatar": "https://www.yalexin.top/images/cat_mouse.jpg"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "type": "工具类",
+      "content": [
+        {
+          "id": 1,
+          "name": "PDF派",
+          "description": "几十个强大的PDF在线工具，永久免费，没有注册入口，人人都是VIP！",
+          "url": "www.pdfpai.com/",
+          "avatar": "https://www.pdfpai.com/statics/images/index_logo.png"
+        },
+        {
+          "id": 2,
+          "name": "drawio",
+          "description": "diagrams.net, previously draw.io, is an online diagramming web site that delivers the source in this project.",
+          "url": "app.diagrams.net/",
+          "avatar": "https://avatars.githubusercontent.com/u/921200?s=64&v=4"
+        }
+      ]
+    }
+  ]
+}
