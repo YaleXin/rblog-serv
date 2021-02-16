@@ -11,9 +11,9 @@ import java.util.List;
 
 @Mapper
 public interface CommentMapper {
-    @Insert("insert into t_comment(nickname,email,content,blog_id,create_time,parent_comment_id,os,browser" +
+    @Insert("insert into t_comment(nickname,email,content,blog_id,create_time,parent_comment_id,os,browser,audited,admin_comment" +
             ") values(" +
-            "#{nickname},#{email},#{content},#{blogId},#{createTime},#{parentCommentId},#{OS},#{browser})")
+            "#{nickname},#{email},#{content},#{blogId},#{createTime},#{parentCommentId},#{OS},#{browser},#{audited}, #{adminComment})")
     // 返回主键字段id值
     @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
     Long insertComment(Comment comment);
@@ -35,5 +35,10 @@ public interface CommentMapper {
 
 
     List<Comment> findCategoryByInterval(Long startIndex, Long size);
+
+    Comment findComment(Long cmtId);
+
+    @Update("update t_comment set send_emailed=1 where id=#{cmtId}")
+    Long markSentCmt(Long cmtId);
 
 }

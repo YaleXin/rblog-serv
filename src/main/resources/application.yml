@@ -4,14 +4,43 @@ spring:
       - dev
   jackson:
     time-zone: Asia/Shanghai
+
+  mail:
+    username: 495592364@qq.com
+    # 授权码，不是QQ登录密码
+    password:
+    host: smtp.qq.com
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+          ssl:
+            enable: true
+            socketFactory:
+              port: 465
+              class: javax.net.ssl.SSLSocketFactory
+    port: 465
+    protocol: smtp
+    default-encoding: utf-8
+
 mybatis:
   mapper-locations: classpath:mybatis/*Mapper.xml
   config-location: classpath:mybatis/mybatis-config.xml
 
 
-# pagehelper
-pagehelper:
-  helperDialect: mysql
-  reasonable: true
-  supportMethodsArguments: true
-  params: count=countSql
+
+########## 自定义 ############
+# 是否开启邮件通知被回复的层主
+comment_email_enable: true
+# 是否开启邮件通知博主
+comment_email_self_enable: true
+
+blog_host: blog.yalexin.top
+blogger_nickname: 黄阿信
+# 发送邮件的邮箱
+email_from: 495592364@qq.com
+# 接收通知邮件的邮箱
+email_receive: 495592364@qq.com

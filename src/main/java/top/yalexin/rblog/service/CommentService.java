@@ -23,4 +23,5 @@ public interface CommentService {
 
     Long deleteCommentByCommentId(Long commentId);
 
+    Long markCommentSent(Long commentId);
 }

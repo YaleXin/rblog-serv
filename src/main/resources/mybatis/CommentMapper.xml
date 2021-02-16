@@ -47,6 +47,12 @@
         <result property="browser" column="browser"/>
         <result property="sendEmailed" column="send_emailed"/>
         <result property="adminComment" column="admin_comment"/>
+        <result property="parentCommentId" column="parent_comment_id"/>
         <result property="blogId" column="blog_id"/>
     </resultMap>
+
+<!--    Comment findComment(Long cmtId);-->
+    <select id="findComment" resultMap="simpleCmt">
+        select * from t_comment where id=#{cmtId}
+    </select>
 </mapper>

@@ -1,0 +1,47 @@
+<!--<!doctype html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport"-->
+<!--          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">-->
+<!--    <meta http-equiv="X-UA-Compatible" content="ie=edge">-->
+<!--    <title>Document</title>-->
+<!--</head>-->
+<!--<body>-->
+
+<!--</body>-->
+<!--</html>-->
+
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+<div style="border-radius: 10px 10px 10px 10px;font-size:13px;    color: #555555;width: 666px;font-family:'Century Gothic','Trebuchet MS','Hiragino Sans GB',微软雅黑,'Microsoft Yahei',Tahoma,Helvetica,Arial,'SimSun',sans-serif;margin:50px auto;border:1px solid #eee;max-width:100%;background: #ffffff repeating-linear-gradient(-45deg,#fff,#fff 1.125rem,transparent 1.125rem,transparent 2.25rem);box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);">
+    <div style="width:100%;background:#49BDAD;color:#ffffff;border-radius: 10px 10px 0 0;background-image: -moz-linear-gradient(0deg, rgb(67, 198, 184), rgb(255, 209, 244));background-image: -webkit-linear-gradient(0deg, rgb(67, 198, 184), rgb(255, 209, 244));height: 66px;">
+        <p style="font-size:15px;word-break:break-all;padding: 23px 32px;margin:0;background-color: hsla(0,0%,100%,.4);border-radius: 10px 10px 0 0;">
+            您在【<span style="text-decoration:none;color: #ffffff;" th:text="${bloggernickname}"> 博客地址 </span>】上的文章有新回复啦！</p>
+    </div>
+    <div style="margin:40px auto;width:90%">
+        <p><span th:text="${parentCommentNickname}">父</span> 同学，曾在文章 《<a style="text-decoration:none; color:#12addb" href="" th:text="${blogTitle}"></a>》 上发表评论：</p>
+        <div th:text="${parentContent}"
+             style="background: #fafafa repeating-linear-gradient(-45deg,#fff,#fff 1.125rem,transparent 1.125rem,transparent 2.25rem);box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);margin:20px 0px;padding:15px;border-radius:5px;font-size:14px;color:#555555;">
+            父评论内容
+        </div>
+        <p><span th:text="${replyNickname}">子</span> 给Ta的回复如下：</p>
+        <div th:text="${replyContent}"
+             style="background: #fafafa repeating-linear-gradient(-45deg,#fff,#fff 1.125rem,transparent 1.125rem,transparent 2.25rem);box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);margin:20px 0px;padding:15px;border-radius:5px;font-size:14px;color:#555555;">
+            子评论内容
+        </div>
+        <p>您可以点击
+            <a style="text-decoration:none; color:#12addb" th:href="@{${replyAddr}}" th:text="${replyAddr}"></a>查看回复的完整內容，欢迎再次光临<a
+                style="text-decoration:none; color:#12addb" th:href="@{${blogHost}}" th:text="|${bloggernickname}的博客|">
+            博客地址</a>。</p>
+        <style type="text/css">
+            a:link{text-decoration:none}a:visited{text-decoration:none}a:hover{text-decoration:none}a:active{text-decoration:none}
+
+        </style>
+    </div>
+</div>
+</body>
+</html>
