@@ -61,7 +61,6 @@ public class SendEmailServiceImpl implements SendEmailService {
     @Async
     @Override
     public void send(Comment parentComment, Comment replyComment, boolean is2Parent) {
-        logger.info("准备发送邮件...........");
         String parentCommentEmail = null;
         String parentCommentNickname = null;
         String parentCommentContent = null;
@@ -85,7 +84,7 @@ public class SendEmailServiceImpl implements SendEmailService {
         // 如果是给父级评论发送邮件(commentService 已经判定改评论尚未发送邮件)
         if (is2Parent && commentEmailEnable) {
             String html = EmailTemplateUtils.toParentCmtHTML(blog_host, blogger_nickname, blog_host + replyAddr, blog.getName(), parentCommentNickname, parentCommentContent, replyComment.getNickname(), replyComment.getContent());
-            boolean success = sendHtmlMail(email_from, parentComment.getEmail(), "您之前发表的评论有新的回复啦，赶快去看一下吧！", html);
+            boolean success = sendHtmlMail(email_from, parentCommentEmail, "您之前发表的评论有新的回复啦，赶快去看一下吧！", html);
             if (success)sent(replyComment.getId());
         } else if (commentEmailSelfEnable) {
             String html = EmailTemplateUtils.toSelfHTML(blog_host, blogger_nickname, blog_host + replyAddr, blog.getName(), parentCommentNickname, parentCommentContent, replyComment.getNickname(), replyComment.getContent());

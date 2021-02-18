@@ -7,8 +7,10 @@ package top.yalexin.rblog.mapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
+import org.springframework.stereotype.Component;
 import top.yalexin.rblog.entity.User;
 
+@Component(value = "UserMapper")
 @Mapper
 public interface UserMapper {
     @Select("select * from t_user where username=#{username}")

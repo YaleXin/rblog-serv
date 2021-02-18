@@ -6,11 +6,13 @@ package top.yalexin.rblog.mapper;
 
 import org.apache.ibatis.annotations.*;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Component;
 import top.yalexin.rblog.entity.Blog;
 
 import java.util.List;
 
 @Mapper
+@Component(value = "BlogMapper")
 public interface BlogMapper {
     @Select("select * from t_blog")
     List<Blog> findAllBlog();

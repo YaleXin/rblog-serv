@@ -1,8 +1,5 @@
 package top.yalexin.rblog.entity;
 
-import org.hibernate.validator.constraints.NotBlank;
-
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;

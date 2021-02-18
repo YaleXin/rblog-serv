@@ -17,6 +17,13 @@
           "description": "要么改变世界，要么适应世界",
           "url": "yalexin.gitee.io/",
           "avatar": "https://www.yalexin.top/images/cat_mouse.jpg"
+        },
+        {
+          "id": 3,
+          "name": "vue部署",
+          "description": "vue被部署到子（二级）目录",
+          "url": "www.manongjc.com/detail/16-slblmxcfgbvagyc.html",
+          "avatar": "https://www.yalexin.top/images/cat_mouse.jpg"
         }
       ]
     },

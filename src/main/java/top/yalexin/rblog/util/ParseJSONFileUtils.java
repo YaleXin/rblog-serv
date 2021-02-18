@@ -12,7 +12,7 @@ import org.springframework.util.ResourceUtils;
 import java.io.*;
 
 public class ParseJSONFileUtils {
-    private final static String FILE_NAME = "link/link.json";
+    private final static String FILE_NAME = "./link/link.json";
 
     //读取json文件
     private static String readJsonFile(String fileName) {

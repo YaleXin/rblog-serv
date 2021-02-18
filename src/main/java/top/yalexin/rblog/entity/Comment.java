@@ -1,7 +1,5 @@
 package top.yalexin.rblog.entity;
 
-import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 

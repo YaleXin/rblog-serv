@@ -15,6 +15,7 @@
     <description>project for Blog Api</description>
     <properties>
         <java.version>1.8</java.version>
+        <skipTests>true</skipTests>
     </properties>
     <dependencies>
         <dependency>
@@ -37,6 +38,7 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <scope>runtime</scope>
+            <version>5.1.44</version>
         </dependency>
 
         <dependency>
@@ -47,7 +49,7 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-aop</artifactId>
-            <version>5.1.16.RELEASE</version>
+<!--            <version>5.1.16.RELEASE</version>-->
         </dependency>
         <dependency>
             <groupId>org.aspectj</groupId>
@@ -143,6 +145,9 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>top.yalexin.rblog.RblogServApplication</mainClass>
+                </configuration>
             </plugin>
         </plugins>
     </build>

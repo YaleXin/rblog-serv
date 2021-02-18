@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import top.yalexin.rblog.intercepors.LoginInterceptor;
+import top.yalexin.rblog.intercepors.TestSessionInterceptor;
 
 @Configuration
 public class WebConfigure implements WebMvcConfigurer {
@@ -20,5 +21,7 @@ public class WebConfigure implements WebMvcConfigurer {
         registry.addInterceptor(new LoginInterceptor()).
                 addPathPatterns("/admin/**").
                 excludePathPatterns("/admin/login");
+        registry.addInterceptor(new TestSessionInterceptor()).
+                addPathPatterns("/**");
     }
 }

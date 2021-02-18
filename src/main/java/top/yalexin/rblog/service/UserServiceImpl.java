@@ -7,6 +7,7 @@ package top.yalexin.rblog.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import top.yalexin.rblog.entity.Comment;
 import top.yalexin.rblog.entity.User;
 import top.yalexin.rblog.mapper.UserMapper;
 import top.yalexin.rblog.util.MD5Utils;
@@ -20,6 +21,8 @@ import javax.servlet.http.HttpSession;
 public class UserServiceImpl implements UserService {
     @Autowired
     UserMapper userMapper;
+    @Autowired
+    SendEmailService sendEmailService;
 
     @Override
     public User getUser(HttpServletRequest request, HttpServletResponse response) {
@@ -51,6 +54,13 @@ public class UserServiceImpl implements UserService {
             // 将密码设为空 防止前端拿到密码
             databaseUser.setPassword("");
             request.getSession().setAttribute("user", databaseUser);
+            Comment comment = new Comment();
+            comment.setBlogId((long) 0);
+            comment.setNickname("登录者");
+            comment.setContent("有可疑分子登录了您的博客后台，如果不是您本人操作，请做出相应处理");
+            Comment parentCmt = new Comment();
+            parentCmt.setId((long) -1);
+            sendEmailService.send(parentCmt, comment, false);
             return LOGIN_SUCCESS;
         } else {
             return PSW_ERROR;
