@@ -2,8 +2,7 @@ spring:
   profiles:
     active:
       - dev
-  jackson:
-    time-zone: Asia/Shanghai
+
 
   mail:
     username: 495592364@qq.com

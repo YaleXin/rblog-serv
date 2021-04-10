@@ -16,6 +16,7 @@ import java.util.*;
 public class MarkdownUtils {
     /**
      * markdown格式转换成HTML格式
+     *
      * @param markdown
      * @return
      */
@@ -29,6 +30,7 @@ public class MarkdownUtils {
     /**
      * 增加扩展[标题锚点，表格生成]
      * Markdown转换成HTML
+     *
      * @param markdown
      * @return
      */
@@ -91,7 +93,7 @@ public class MarkdownUtils {
                 attributes.put("class", aClass);
             }
             // 斜体
-            if (node instanceof Emphasis){
+            if (node instanceof Emphasis) {
                 String aClass = attributes.get("class");
                 if (aClass != null && !aClass.equals("")) {
                     aClass = aClass + " m-em";
@@ -101,7 +103,7 @@ public class MarkdownUtils {
                 attributes.put("class", aClass);
             }
             // 粗体
-            if (node instanceof StrongEmphasis){
+            if (node instanceof StrongEmphasis) {
                 String aClass = attributes.get("class");
                 if (aClass != null && !aClass.equals("")) {
                     aClass = aClass + " strong";
@@ -120,14 +122,22 @@ public class MarkdownUtils {
                 "|1|2|3|\n" +
                 "|4|5|6|\n\n-----------\n" +
                 "\n" +
-                        "header 1 | header 2\n" +
-                        "---|---\n" +
-                        "row 1 col 1 | row 1 col 2\n" +
-                        "row 2 col 1 | row 2 col 2\n" +
-                        "\n";
-        System.out.println(markdownToHtmlExtensions(table));
+                "header 1 | header 2\n" +
+                "---|---\n" +
+                "row 1 col 1 | row 1 col 2\n" +
+                "row 2 col 1 | row 2 col 2\n" +
+                "\n";
+        String c__code = "```cpp\n" +
+                "int main(){\n" +
+                "    return 0;\n" +
+                "}\n" +
+                "```";
+        String cCode = "```c++\n" +
+                "int main(){\n" +
+                "    return 0;\n" +
+                "}\n" +
+                "```";
+        System.out.println(markdownToHtmlExtensions(c__code));
+        System.out.println(markdownToHtmlExtensions(cCode));
     }
-
-
-
 }

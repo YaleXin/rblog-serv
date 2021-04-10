@@ -50,6 +50,9 @@ public class BlogController {
     public ResponseEntity getOneBlog(@PathVariable("id") Long id) {
         HashMap<String, Object> map = new HashMap<>();
         map.put("blog", blogService.getParsedBlogById(id));
+        System.out.println("----------");
+        System.out.println(blogService.getParsedBlogById(id).getCreateTime().toString());
+        System.out.println("----------");
         return new ResponseEntity(map, HttpStatus.OK);
     }
 

@@ -1,5 +1,7 @@
 package top.yalexin.rblog.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -13,8 +15,9 @@ public class Blog {
     private Integer views;
     private boolean published;
 
-
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="UTC")
     private Date createTime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="UTC")
     private Date updateTime;
     //    @NotBlank(message = "分类不能为空")
     private Category category;
