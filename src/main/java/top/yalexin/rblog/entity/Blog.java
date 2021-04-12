@@ -130,7 +130,7 @@ public class Blog {
         return "Blog{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", content='" + content + '\'' +
+//                ", content='" + content + '\'' +
                 ", description='" + description + '\'' +
                 ", views=" + views +
                 ", published=" + published +

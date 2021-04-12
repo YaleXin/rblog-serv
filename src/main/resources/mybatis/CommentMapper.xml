@@ -4,7 +4,7 @@
     <!--    List<Comment> findTopCommentsByParentIdAndBlogId(Long parentId, Long blogId);-->
     <!--    用于查询某篇文章下的评论（需要通过审核）-->
     <select id="findTopCommentsByParentIdAndBlogId" resultMap="topComment">
-        select * from t_comment as cmt where cmt.parent_comment_id=#{parentId} and cmt.blog_id=#{blogId} and cmt.audited=1
+        select * from t_comment as cmt where cmt.parent_comment_id=#{parentId} and cmt.blog_id=#{blogId} and cmt.audited=1 order by cmt.id desc
     </select>
     <resultMap id="topComment" type="Comment">
         <id column="id" property="id"></id>

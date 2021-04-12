@@ -1,5 +1,7 @@
 package top.yalexin.rblog.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 import java.util.List;
 
@@ -9,6 +11,7 @@ public class Comment {
     private String nickname;
     private String email;
     private String content;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="UTC")
     private Date createTime;
     private boolean audited;
     private String OS;
