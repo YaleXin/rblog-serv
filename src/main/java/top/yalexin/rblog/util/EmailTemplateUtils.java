@@ -25,7 +25,7 @@ public class EmailTemplateUtils {
                         "            您在【<span style=\"text-decoration:none;color: #ffffff;\"> " + bloggernickname + " </span>】上的文章有新回复啦！</p>\n" +
                         "    </div>\n" +
                         "    <div style=\"margin:40px auto;width:90%\">\n" +
-                        "        <p><span >" + (parentCommentNickname != null ? parentCommentNickname : "") + "</span> 同学，曾在文章 《<a style=\"text-decoration:none; color:#12addb\" href=\"\" >" + blogTitle + "</a>》 上发表评论：</p>\n" +
+                        "        <p><span >" + (parentCommentNickname != null ? parentCommentNickname : "") + "</span> 同学，曾在文章 《<a style=\"text-decoration:none; color:#12addb\" href = \"" + "http://" + replyAddr +"\" >" + blogTitle + "</a>》 上发表评论：</p>\n" +
                         "        <div \n" +
                         "             style=\"background: #fafafa repeating-linear-gradient(-45deg,#fff,#fff 1.125rem,transparent 1.125rem,transparent 2.25rem);box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);margin:20px 0px;padding:15px;border-radius:5px;font-size:14px;color:#555555;\">\n" +
                         "            " + (parentContent != null ? parentContent : "") + "\n" +
@@ -36,8 +36,8 @@ public class EmailTemplateUtils {
                         "            " + replyContent + "\n" +
                         "        </div>\n" +
                         "        <p>您可以点击\n" +
-                        "            <a style=\"text-decoration:none; color:#12addb\" href=" + replyAddr + "\" >" + replyAddr + "</a>查看回复的完整內容，欢迎再次光临<a\n" +
-                        "                style=\"text-decoration:none; color:#12addb\" href=" + blogHost + "\" >\n" +
+                        "            <a style=\"text-decoration:none; color:#12addb\" href=\"   " + "http://" + replyAddr + "\" tartget = \"_blank\">" + replyAddr + "</a>查看回复的完整內容，欢迎再次光临<a\n" +
+                        "                style=\"text-decoration:none; color:#12addb\" href=\"  " + "http://" + blogHost + "\" tartget = \"_blank\">\n" +
                         "                " + bloggernickname + "的博客</a>。</p>\n" +
                         "        <style type=\"text/css\">\n" +
                         "            a:link{text-decoration:none}a:visited{text-decoration:none}a:hover{text-decoration:none}a:active{text-decoration:none}\n" +
@@ -67,7 +67,7 @@ public class EmailTemplateUtils {
                         "            您在【<span style=\"text-decoration:none;color: #ffffff;\"> " + bloggernickname + " </span>】上发表的的评论有新回复啦！</p>\n" +
                         "    </div>\n" +
                         "    <div style=\"margin:40px auto;width:90%\">\n" +
-                        "        <p><span >" + (parentCommentNickname != null ? parentCommentNickname : "") + "</span> 同学，您曾在文章 《<a style=\"text-decoration:none; color:#12addb\" href=\"\" >" + blogTitle + "</a>》 上发表评论：</p>\n" +
+                        "        <p><span >" + (parentCommentNickname != null ? parentCommentNickname : "") + "</span> 同学，您曾在文章 《<a style=\"text-decoration:none; color:#12addb\" href=\" "+ "http://" + replyAddr +" \" >" + blogTitle + "</a>》 上发表评论：</p>\n" +
                         "        <div \n" +
                         "             style=\"background: #fafafa repeating-linear-gradient(-45deg,#fff,#fff 1.125rem,transparent 1.125rem,transparent 2.25rem);box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);margin:20px 0px;padding:15px;border-radius:5px;font-size:14px;color:#555555;\">\n" +
                         "            " + (parentContent != null ? parentContent : "") + "\n" +
@@ -78,8 +78,8 @@ public class EmailTemplateUtils {
                         "            " + replyContent + "\n" +
                         "        </div>\n" +
                         "        <p>您可以点击\n" +
-                        "            <a style=\"text-decoration:none; color:#12addb\" href=" + replyAddr + "\" >" + replyAddr + "</a>查看回复的完整內容，欢迎再次光临<a\n" +
-                        "                style=\"text-decoration:none; color:#12addb\" href=" + blogHost + "\" >\n" +
+                        "            <a style=\"text-decoration:none; color:#12addb\" href=\"   " + "http://" +  replyAddr + "\" tartget = \"_blank\">" + replyAddr + "</a>查看回复的完整內容，欢迎再次光临<a\n" +
+                        "                style=\"text-decoration:none; color:#12addb\" href=\"  " +  "http://" + blogHost + "\" tartget = \"_blank\">\n" +
                         "                " + bloggernickname + "的博客</a>。</p>\n " +
                         "       <p>此邮件由博主 <span style=\"text-decoration:none; color:#12addb\" >" + bloggernickname + "</span> 自动发送。 如果您之前没有在该文章上进行评论，您的邮箱账户可能被恶意使用！对此我深感抱歉，请发送邮件告知于我，我将不会再发送给您\n" +
                         "        </p>" +

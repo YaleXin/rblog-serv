@@ -12,7 +12,7 @@
 <!--</body>-->
 <!--</html>-->
 
-<html >
+<html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
 </head>
@@ -23,7 +23,7 @@
             您在【<span style="text-decoration:none;color: #ffffff;"> bloggernickname </span>】上的文章有新回复啦！</p>
     </div>
     <div style="margin:40px auto;width:90%">
-        <p><span >parentCommentNickname</span> 同学，曾在文章 《<a style="text-decoration:none; color:#12addb" href="" th:text="${blogTitle}"></a>》 上发表评论：</p>
+        <p><span >parentCommentNickname</span> 同学，曾在文章 《<a style="text-decoration:none; color:#12addb" th:href="@{${replyAddr}}" target="_blank" th:text="${blogTitle}"></a>》 上发表评论：</p>
         <div
              style="background: #fafafa repeating-linear-gradient(-45deg,#fff,#fff 1.125rem,transparent 1.125rem,transparent 2.25rem);box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);margin:20px 0px;padding:15px;border-radius:5px;font-size:14px;color:#555555;">
             parentContent

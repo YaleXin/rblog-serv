@@ -2,8 +2,6 @@ spring:
   profiles:
     active:
       - dev
-
-
   mail:
     username: 495592364@qq.com
     # 授权码，不是QQ登录密码
@@ -37,9 +35,12 @@ comment_email_enable: true
 # 是否开启邮件通知博主
 comment_email_self_enable: true
 
-blog_host: blog.yalexin.top
+blog_host: www.yalexin.top/blog
 blogger_nickname: 黄阿信
 # 发送邮件的邮箱
 email_from: 495592364@qq.com
 # 接收通知邮件的邮箱
 email_receive: 495592364@qq.com
+
+#html template path (resources/templates/email/template.html)
+templatePath: email/template

@@ -19,9 +19,11 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
+
 import top.yalexin.rblog.entity.Blog;
 import top.yalexin.rblog.entity.Comment;
 import top.yalexin.rblog.util.EmailTemplateUtils;
+
 
 @Component
 @Service
@@ -55,7 +57,11 @@ public class SendEmailServiceImpl implements SendEmailService {
     @Value("${email_receive}")
     private String email_receive;
 
+    @Value("${templatePath}")
+    private String templatePath;
+
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
 
     @Transactional
     @Async
@@ -115,5 +121,7 @@ public class SendEmailServiceImpl implements SendEmailService {
         Long aLong = commentService.markCommentSent(cmtId);
         return aLong > 0;
     }
+
+
 
 }

@@ -8,27 +8,98 @@
           "id": 1,
           "name": "黄阿信的博客",
           "description": "要么改变世界，要么适应世界",
-          "url": "www.yalexin.com",
-          "avatar": "https://www.yalexin.top/images/cat_mouse.jpg"
+          "url": "www.yalexin.top/blog",
+          "avatar": "https://qiniu.yalexin.top/cat_mouse.jpg"
         },
         {
           "id": 2,
           "name": "黄阿信的hexo博客",
           "description": "要么改变世界，要么适应世界",
           "url": "yalexin.gitee.io/",
-          "avatar": "https://www.yalexin.top/images/cat_mouse.jpg"
+          "avatar": "https://qiniu.yalexin.top/cat_mouse.jpg"
         },
         {
           "id": 3,
-          "name": "vue部署",
-          "description": "vue被部署到子（二级）目录",
-          "url": "www.manongjc.com/detail/16-slblmxcfgbvagyc.html",
-          "avatar": "https://www.yalexin.top/images/cat_mouse.jpg"
-        }
+          "name": "水寒的博客",
+          "description": "物联网应用开发",
+          "url": "dp2px.com",
+          "avatar": "https://dp2px.com/images/download_head.png"
+        },
+        {
+          "id": 4,
+          "name": "新逸Cary",
+          "description": "一个专注技术的程序猿",
+          "url": "blog.xinac.cn/",
+          "avatar": "https://blog.xinac.cn/avatar"
+        },
+        {
+          "id": 5,
+          "name": "About刘磊",
+          "description": "读万卷书，行万里路",
+          "url": "abliulei.com",
+          "avatar": "https://s.gravatar.com/avatar/f2cd274ebde4d0855dc5836b000f9103?s=80"
+	},
+         {
+          "id": 6,
+          "name": "Blankj",
+          "description": "基你太美之 AndroidUtilCode 作者。",
+          "url": "blankj.com",
+          "avatar": "https://blankj.com/images/avatar.png"
+        },
+
+		{
+          "id": 7,
+          "name": "摘繁华个人博客",
+          "description": "白衣无尘，亦如初见。",
+          "url": "blog.zhaifanhua.com",
+          "avatar": "https://cdn.zhaifanhua.com/static/img/avatar/zhaifanhua.png"
+        },
+		{
+          "id": 8,
+          "name": "Heanny Liu",
+          "description": "Heanny Blog",
+          "url": "www.heanny.cn",
+          "avatar": "https://www.heanny.cn/favicon.ico"
+        },
+
       ]
     },
     {
-      "id": 2,
+	"id": 2,
+	"type": "OI",
+	"content":[
+            {
+		"id": 1,
+		"name": "oi-wiki",
+		"description": "OI Wiki 致力于成为一个免费开放且持续更新的 编程竞赛 (competitive programming) 知识整合站点。",
+		"url": "oi-wiki.org",
+		"avatar": "https://cdn.jsdelivr.net/npm/oicdn@0.0.1/wordArt.webp"
+	    },
+  	   {
+		"id": 2,
+		"name": "Virtual Judge",
+		"description": "Virtual Judge is not a real online judge. It can grab problems from other regular online judges and simulate submissions to other online judges. It aims to enable holding contests when you don't have the test data.",
+		"url": "vjudge.net",
+		"avatar": "https://vjudge.net/static/images/favicon.ico"
+	    },
+            {
+		"id": 3,
+		"name": "洛谷",
+		"description": "洛谷创办于2013年，致力于为参加noip、noi、acm的选手提供清爽、快捷的编程体验。它拥有在线测题系统、强大的社区、在线学习功能。很多教程内容由各位oiers提供的，内容广泛。",
+		"url": "www.luogu.com.cn",
+		"avatar": "https://cdn.luogu.com.cn/fe/logo.png"
+	    },
+    	    {
+		"id": 4,
+		"name": "力扣",
+		"description": "备战技术面试？力扣提供海量技术面试资源，帮助你高效提升编程技能，轻松拿下世界 IT 名企 Dream Offer。",
+		"url": "leetcode-cn.com",
+		"avatar": "https://static.leetcode-cn.com/cn-mono-assets/production/assets/logo-dark-cn.c42314a8.svg"
+	    }
+	]
+    },
+    {
+      "id": 3,
       "type": "工具类",
       "content": [
         {
@@ -44,7 +115,22 @@
           "description": "diagrams.net, previously draw.io, is an online diagramming web site that delivers the source in this project.",
           "url": "app.diagrams.net/",
           "avatar": "https://avatars.githubusercontent.com/u/921200?s=64&v=4"
+        },
+        {
+          "id": 3,
+          "name": "在线PS",
+          "description": "稿定设计，在线PS",
+          "url": "ps.gaoding.com/#/",
+          "avatar": "https://cdn.dancf.com/image-design/img/aside-tools-ps.469a85be.svg"
+        },
+	{
+          "id": 4,
+          "name": "CodeInWord",
+          "description": "在线格式化代码，方便插入word",
+          "url":  "http://www.codeinword.com",
+          "avatar": ""
         }
+
       ]
     }
   ]
