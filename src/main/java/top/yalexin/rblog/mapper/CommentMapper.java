@@ -11,9 +11,9 @@ import java.util.List;
 
 @Mapper
 public interface CommentMapper {
-    @Insert("insert into t_comment(nickname,email,content,blog_id,create_time,parent_comment_id,os,browser,audited,admin_comment" +
+    @Insert("insert into t_comment(nickname,email,content,blog_id,create_time,parent_comment_id,os,browser,ip,audited,admin_comment" +
             ") values(" +
-            "#{nickname},#{email},#{content},#{blogId},#{createTime},#{parentCommentId},#{OS},#{browser},#{audited}, #{adminComment})")
+            "#{nickname},#{email},#{content},#{blogId},#{createTime},#{parentCommentId},#{OS},#{browser},#{ip},#{audited}, #{adminComment})")
     // 返回主键字段id值
     @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
     Long insertComment(Comment comment);

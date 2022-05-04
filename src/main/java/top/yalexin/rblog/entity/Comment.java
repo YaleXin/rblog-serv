@@ -25,6 +25,15 @@ public class Comment {
     // 所艾特的昵称
     private String replyNickname;
     private String blogName;
+    private String ip;
+
+    public String getIp() {
+        return ip;
+    }
+
+    public void setIp(String ip) {
+        this.ip = ip;
+    }
 
     public String getBlogName() {
         return blogName;
@@ -128,6 +137,7 @@ public class Comment {
                 ", blogId=" + blogId +
                 ", replyComments=" + replyComments +
                 ", parentCommentId=" + parentCommentId +
+                ", ip=" + ip +
                 ", replyNickname='" + replyNickname + '\'' +
                 '}';
     }

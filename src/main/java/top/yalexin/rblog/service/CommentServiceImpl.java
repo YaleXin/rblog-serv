@@ -13,6 +13,7 @@ import top.yalexin.rblog.entity.Category;
 import top.yalexin.rblog.entity.Comment;
 import top.yalexin.rblog.entity.User;
 import top.yalexin.rblog.mapper.CommentMapper;
+import top.yalexin.rblog.util.IPUtils;
 import top.yalexin.rblog.util.PageResult;
 import top.yalexin.rblog.util.PageUtils;
 
@@ -41,10 +42,14 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public int addComment(Comment comment, HttpServletRequest request) {
         if (commentMapper == null) return 0;
+//        获取 IP 地址
+        String iRealIPAddr = IPUtils.getIRealIPAddr(request);
+
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
         // 若是管理员评论，直接不需要审核和接收频率限制
         if (user != null) {
+            comment.setIp("127.0.0.1");
             comment.setAdminComment(true);
             comment.setAudited(true);
             comment.setNickname(user.getNickname());
@@ -62,6 +67,7 @@ public class CommentServiceImpl implements CommentService {
             Date now = new Date();
             // 假如之前没有评论过，则直接可以评论
             if (lastCmtTime == null) {
+                comment.setIp(iRealIPAddr);
                 Long result = commentMapper.insertComment(comment);
                 if (result == null || result <= 0) return 0;
                 else {
@@ -77,9 +83,11 @@ public class CommentServiceImpl implements CommentService {
                 }
             } else {
                 long dist = now.getTime() - lastCmtTime.getTime();
+                // 若上一分钟刚刚提交过
                 if (dist < 60 * 1000) {
                     return 2;
                 }
+                comment.setIp(iRealIPAddr);
                 Long result = commentMapper.insertComment(comment);
                 if (result == null || result <= 0) return 0;
                 else {
