@@ -12,10 +12,13 @@ import top.yalexin.rblog.entity.User;
 import top.yalexin.rblog.mapper.UserMapper;
 import top.yalexin.rblog.util.IPUtils;
 import top.yalexin.rblog.util.MD5Utils;
+import top.yalexin.rblog.util.RandomValidateCodeUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.Map;
 
 @Transactional
 @Service
@@ -41,10 +44,14 @@ public class UserServiceImpl implements UserService {
      * @return 0: 登录成功，1：用户不存在，2：密码错误
      */
     @Override
-    public int login(User user, String salt, HttpServletRequest request, HttpServletResponse response) {
-        final int LOGIN_SUCCESS = 0, USER_NOT_EXIST = 1, PSW_ERROR = 2;
+    public int login(User user, String salt, String codeStr, HttpServletRequest request, HttpServletResponse response) {
+        final int LOGIN_SUCCESS = 0, USER_NOT_EXIST = 1, PSW_ERROR = 2, CODE_ERROR = 3;
         if (user == null || user.getUsername() == null || "".equals(user.getUsername().trim())) {
             return USER_NOT_EXIST;
+        }
+        String md5code = (String) request.getSession().getAttribute("code");
+        if (!(MD5Utils.code("" + md5code)).equals(codeStr)){
+            return CODE_ERROR;
         }
         User databaseUser = userMapper.findUser(user.getUsername());
         if (databaseUser == null) return USER_NOT_EXIST;
@@ -81,6 +88,19 @@ public class UserServiceImpl implements UserService {
             session.removeAttribute("user");
             return 1;
         }
+    }
+
+    @Override
+    public Map verifyCode(HttpServletRequest request, HttpServletResponse response) {
+        HashMap<String, String> codeMap = RandomValidateCodeUtil.getRandomValidateCode(5);
+
+        HashMap<String, String> map = new HashMap<>();
+        map.put("img", codeMap.get("base64img"));
+//        先将 验证码进行 md5 加密
+        String md5code = MD5Utils.code(codeMap.get("code").toLowerCase());
+        request.getSession().setAttribute("code", md5code);
+        map.put("code", md5code);
+        return map;
     }
 
     @Override

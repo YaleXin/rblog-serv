@@ -20,6 +20,7 @@ public class WebConfigure implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new LoginInterceptor()).
                 addPathPatterns("/admin/**").
+                excludePathPatterns("/admin/verifyCode").
                 excludePathPatterns("/admin/login");
         registry.addInterceptor(new TestSessionInterceptor()).
                 addPathPatterns("/**");
