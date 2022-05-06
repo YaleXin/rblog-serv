@@ -87,7 +87,7 @@ public class RandomValidateCodeUtil {
             /* 将文字旋转制定角度 */
             Graphics2D g2d_word = (Graphics2D) g;
             AffineTransform trans = new AffineTransform();
-            trans.rotate((20) * 3.14 / 180, 15 * i + 8, 7);
+            trans.rotate((random.nextInt(60) - 30) * 3.14 / 180, 15 * i + 8, 7);
 
             /* 缩放文字 */
             float scaleSize = random.nextFloat() + 0.8f;
@@ -96,7 +96,7 @@ public class RandomValidateCodeUtil {
             trans.scale(scaleSize, scaleSize);
             g2d_word.setTransform(trans);
             // 坐标原点在左上角，往右是x的正方向，往下是y的正方向
-            g.drawString(sTemp, 15 * i + 2, height / 2 + 3);
+            g.drawString(sTemp, 15 * i + 2, height / 2 + 6);
 
         }
         HashMap<String, String> map = new HashMap<>();

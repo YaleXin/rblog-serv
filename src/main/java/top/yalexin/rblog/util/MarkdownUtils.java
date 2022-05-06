@@ -1,15 +1,18 @@
 package top.yalexin.rblog.util;
 
 import org.commonmark.Extension;
+import org.commonmark.ext.gfm.strikethrough.StrikethroughExtension;
 import org.commonmark.ext.gfm.tables.TableBlock;
 import org.commonmark.ext.gfm.tables.TablesExtension;
 import org.commonmark.ext.heading.anchor.HeadingAnchorExtension;
+import org.commonmark.ext.task.list.items.TaskListItemsExtension;
 import org.commonmark.node.*;
 import org.commonmark.parser.Parser;
 import org.commonmark.renderer.html.AttributeProvider;
 import org.commonmark.renderer.html.AttributeProviderContext;
 import org.commonmark.renderer.html.AttributeProviderFactory;
 import org.commonmark.renderer.html.HtmlRenderer;
+import top.yalexin.rblog.util.markdown.HighlightExtension;
 
 import java.util.*;
 
@@ -20,15 +23,15 @@ public class MarkdownUtils {
      * @param markdown
      * @return
      */
-    public static String markdownToHtml(String markdown) {
-        Parser parser = Parser.builder().build();
-        Node document = parser.parse(markdown);
-        HtmlRenderer renderer = HtmlRenderer.builder().build();
-        return renderer.render(document);
-    }
+//    public static String markdownToHtml(String markdown) {
+//        Parser parser = Parser.builder().build();
+//        Node document = parser.parse(markdown);
+//        HtmlRenderer renderer = HtmlRenderer.builder().build();
+//        return renderer.render(document);
+//    }
 
     /**
-     * 增加扩展[标题锚点，表格生成]
+     * 增加扩展[标题锚点，表格生成，斜体，任务列表]
      * Markdown转换成HTML
      *
      * @param markdown
@@ -39,13 +42,29 @@ public class MarkdownUtils {
         Set<Extension> headingAnchorExtensions = Collections.singleton(HeadingAnchorExtension.create());
         //转换table的HTML
         List<Extension> tableExtension = Arrays.asList(TablesExtension.create());
+
+        //转换斜体的HTML
+        List<Extension> strikethroughExtension = Arrays.asList(StrikethroughExtension.create());
+
+        //转换任务列表的HTML
+        List<Extension> taskListItemsExtension = Arrays.asList(TaskListItemsExtension.create());
+
+        //转换高亮的HTML
+        List<Extension> highlightExtension = Arrays.asList(HighlightExtension.create());
+
         Parser parser = Parser.builder()
                 .extensions(tableExtension)
+                .extensions(strikethroughExtension)
+                .extensions(taskListItemsExtension)
+                .extensions(highlightExtension)
                 .build();
         Node document = parser.parse(markdown);
         HtmlRenderer renderer = HtmlRenderer.builder()
                 .extensions(headingAnchorExtensions)
                 .extensions(tableExtension)
+                .extensions(taskListItemsExtension)
+                .extensions(strikethroughExtension)
+                .extensions(highlightExtension)
                 .attributeProviderFactory(new AttributeProviderFactory() {
                     public AttributeProvider create(AttributeProviderContext context) {
                         return new CustomAttributeProvider();
@@ -54,7 +73,6 @@ public class MarkdownUtils {
                 .build();
         return renderer.render(document);
     }
-
     /**
      * 处理标签的属性
      */
@@ -117,27 +135,45 @@ public class MarkdownUtils {
 
 
     public static void main(String[] args) {
-        String table = "|表头一|表头二|表头三|\n" +
-                "|:---:|:---:|:---:|\n" +
-                "|1|2|3|\n" +
-                "|4|5|6|\n\n-----------\n" +
-                "\n" +
-                "header 1 | header 2\n" +
-                "---|---\n" +
-                "row 1 col 1 | row 1 col 2\n" +
-                "row 2 col 1 | row 2 col 2\n" +
-                "\n";
-        String c__code = "```cpp\n" +
-                "int main(){\n" +
-                "    return 0;\n" +
-                "}\n" +
-                "```";
-        String cCode = "```c++\n" +
-                "int main(){\n" +
-                "    return 0;\n" +
-                "}\n" +
-                "```";
-        System.out.println(markdownToHtmlExtensions(c__code));
-        System.out.println(markdownToHtmlExtensions(cCode));
+        String italics = "*fdf*";
+        String bold = "**fdf**";
+        String head = "# Heading";
+        String ins = "++you++";
+        String del = "~~you~~";
+        String ref = "> ou~~";
+        String mark = "==you==";
+        String task = "+ [ ] task #1\n" +
+                "+ [x] task #2";
+//        System.out.println(markdownToHtmlExtensions(italics));
+//        System.out.println(markdownToHtmlExtensions(bold));
+//        System.out.println(markdownToHtmlExtensions(head));
+//        System.out.println(markdownToHtmlExtensions(ins));
+//        System.out.println(markdownToHtmlExtensions(del));
+//        System.out.println(markdownToHtmlExtensions(task));
+        System.out.println(markdownToHtmlExtensions(task));
+//        System.out.println(markdownToHtmlExtensions(ref));
+
+//        String table = "|表头一|表头二|表头三|\n" +
+//                "|:---:|:---:|:---:|\n" +
+//                "|1|2|3|\n" +
+//                "|4|5|6|\n\n-----------\n" +
+//                "\n" +
+//                "header 1 | header 2\n" +
+//                "---|---\n" +
+//                "row 1 col 1 | row 1 col 2\n" +
+//                "row 2 col 1 | row 2 col 2\n" +
+//                "\n";
+//        String c__code = "```cpp\n" +
+//                "int main(){\n" +
+//                "    return 0;\n" +
+//                "}\n" +
+//                "```";
+//        String cCode = "```c++\n" +
+//                "int main(){\n" +
+//                "    return 0;\n" +
+//                "}\n" +
+//                "```";
+//        System.out.println(markdownToHtmlExtensions(c__code));
+//        System.out.println(markdownToHtmlExtensions(cCode));
     }
 }
