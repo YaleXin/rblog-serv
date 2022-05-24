@@ -150,7 +150,7 @@ public class MarkdownUtils {
 //        System.out.println(markdownToHtmlExtensions(ins));
 //        System.out.println(markdownToHtmlExtensions(del));
 //        System.out.println(markdownToHtmlExtensions(task));
-        System.out.println(markdownToHtmlExtensions(task));
+//        System.out.println(markdownToHtmlExtensions(task));
 //        System.out.println(markdownToHtmlExtensions(ref));
 
 //        String table = "|表头一|表头二|表头三|\n" +

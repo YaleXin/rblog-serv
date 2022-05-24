@@ -5,13 +5,6 @@
       "type": "博客链接",
       "content": [
         {
-          "id": 1,
-          "name": "黄阿信的博客",
-          "description": "要么改变世界，要么适应世界",
-          "url": "www.yalexin.top/blog",
-          "avatar": "https://qiniu.yalexin.top/cat_mouse.jpg"
-        },
-        {
           "id": 2,
           "name": "黄阿信的hexo博客",
           "description": "要么改变世界，要么适应世界",
@@ -61,7 +54,20 @@
           "url": "www.heanny.cn",
           "avatar": "https://www.heanny.cn/favicon.ico"
         },
-
+		{
+          "id": 9,
+          "name": "Encaik学前端",
+          "description": "论其术之大，观新纪于前，思吾道至端",
+          "url": "encaik.top/",
+          "avatar": "https://encaik.top/img/head.png"
+        },
+		{
+          "id": 10,
+          "name": "LOGI",
+          "description": "会点代码的强迫症",
+          "url": "logi.im",
+          "avatar": "https://code.bdstatic.com/npm/logicdn@1.0.0/logi.im/usr/images/global/logo.webp"
+        },
       ]
     },
     {
@@ -129,7 +135,29 @@
           "description": "在线格式化代码，方便插入word",
           "url":  "http://www.codeinword.com",
           "avatar": ""
+        },
+	{
+          "id": 5,
+          "name": "Data Structure Visualizations",
+          "description": "可视化各种算法执行过程",
+          "url":  "www.cs.usfca.edu/~galles/visualization/Algorithms.html",
+          "avatar": "https://www.cs.usfca.edu/~galles/visualization/favicon.ico"
+        },
+	{
+          "id": 6,
+          "name": "在线LaTeX公式编辑",
+          "description": "LaTeX是一种基于TeX的排版系统，由美国计算机科学家莱斯利·兰伯特在20世纪80年代初期开发",
+          "url":  "www.latexlive.com",
+          "avatar": "-"
+        },
+	 {
+          "id": 7,
+          "name": "git在线学习",
+          "description": "“Learning Git Branching” 可以说是目前为止最好的教程了，在沙盒里你能执行相应的命令，还能看到每个命令的执行情况； 通过一系列刺激的关卡挑战，逐步深入的学习 Git 的强大功能，在这个过程中你可能还会发现一些有意思的事情。",
+          "url":  "learngitbranching.js.org",
+          "avatar": "-"
         }
+
 
       ]
     }
