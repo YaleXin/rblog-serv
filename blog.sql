@@ -1,8 +1,8 @@
 /*
-SQLyog Ultimate v12.09 (64 bit)
+SQLyog Community v13.1.9 (64 bit)
 MySQL - 5.6.48-log : Database - blog
 *********************************************************************
-*/
+*/
 
 /*!40101 SET NAMES utf8 */;
 
@@ -12,7 +12,7 @@ MySQL - 5.6.48-log : Database - blog
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`blog` /*!40100 DEFAULT CHARACTER SET utf8 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`blog` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
 
 USE `blog`;
 
@@ -32,7 +32,7 @@ CREATE TABLE `t_blog` (
   PRIMARY KEY (`id`),
   KEY `FK292449gwg5yf7ocdlmswv9w4j` (`category_id`),
   CONSTRAINT `t_blog_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `t_category` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=79 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=104 DEFAULT CHARSET=utf8mb4;
 
 /*Table structure for table `t_blog_tags` */
 
@@ -55,7 +55,7 @@ CREATE TABLE `t_category` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 
 /*Table structure for table `t_comment` */
 
@@ -65,7 +65,7 @@ CREATE TABLE `t_comment` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `admin_comment` bit(1) NOT NULL DEFAULT b'0',
   `audited` bit(1) NOT NULL DEFAULT b'0',
-  `content` varchar(255) DEFAULT NULL,
+  `content` varchar(255) CHARACTER SET utf8mb4 DEFAULT NULL,
   `create_time` datetime DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
   `nickname` varchar(255) DEFAULT 'hello',
@@ -74,10 +74,11 @@ CREATE TABLE `t_comment` (
   `blog_id` bigint(20) NOT NULL DEFAULT '99',
   `os` varchar(30) DEFAULT 'Windows 10',
   `browser` varchar(30) DEFAULT 'Chrome',
+  `ip` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK4jj284r3pb7japogvo6h72q95` (`parent_comment_id`),
   KEY `blog_id` (`blog_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=91 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=122 DEFAULT CHARSET=utf8;
 
 /*Table structure for table `t_tag` */
 
@@ -87,7 +88,7 @@ CREATE TABLE `t_tag` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=96 DEFAULT CHARSET=utf8;
 
 /*Table structure for table `t_user` */
 
