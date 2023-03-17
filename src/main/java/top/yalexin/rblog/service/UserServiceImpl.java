@@ -4,6 +4,8 @@
  **/
 package top.yalexin.rblog.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,6 +29,8 @@ public class UserServiceImpl implements UserService {
     UserMapper userMapper;
     @Autowired
     SendEmailService sendEmailService;
+
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Override
     public User getUser(HttpServletRequest request, HttpServletResponse response) {
@@ -70,6 +74,10 @@ public class UserServiceImpl implements UserService {
             Comment parentCmt = new Comment();
             parentCmt.setId((long) -1);
             sendEmailService.send(parentCmt, comment, false);
+
+            String iRealIPAddr = IPUtils.getIRealIPAddr(request);
+            logger.info("admin login success!, IP ---> {}  ", iRealIPAddr);
+
             return LOGIN_SUCCESS;
         } else {
             return PSW_ERROR;
