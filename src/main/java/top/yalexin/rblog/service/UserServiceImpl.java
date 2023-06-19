@@ -4,9 +4,11 @@
  **/
 package top.yalexin.rblog.service;
 
+import com.alibaba.fastjson.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import top.yalexin.rblog.entity.Comment;
@@ -21,6 +23,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
+import java.util.zip.ZipInputStream;
 
 @Transactional
 @Service
@@ -53,10 +57,33 @@ public class UserServiceImpl implements UserService {
         if (user == null || user.getUsername() == null || "".equals(user.getUsername().trim())) {
             return USER_NOT_EXIST;
         }
+        /**
+
+        / ----   验证图形验证码的有效性     --- /
+
         String md5code = (String) request.getSession().getAttribute("code");
-        if (!(MD5Utils.code("" + md5code)).equals(codeStr)){
+
+
+        // session中存储的是 md5(验证码)
+        // 客户端传来的是 md5(md5(验证码))
+        if (!(MD5Utils.code("" + md5code)).equals(codeStr)) {
             return CODE_ERROR;
         }
+        / ----   验证图形验证码的有效性     --- /
+
+         **/
+
+        // ----   验证该客户端是否已经进行有效 pow    --- //
+        try {
+            boolean powVerifyResult = (boolean) request.getSession().getAttribute("powVerifyResult");
+            if(!powVerifyResult){
+                return CODE_ERROR;
+            }
+        }catch (NullPointerException e){
+            return CODE_ERROR;
+        }
+
+
         User databaseUser = userMapper.findUser(user.getUsername());
         if (databaseUser == null) return USER_NOT_EXIST;
         // 前端传过来的密码是 md5(md5(md5(psw)) + salt)
@@ -93,7 +120,9 @@ public class UserServiceImpl implements UserService {
         if (user == null) {
             return 0;
         } else {
+            // 清除 session
             session.removeAttribute("user");
+            session.removeAttribute("powVerifyResult");
             return 1;
         }
     }
@@ -109,6 +138,87 @@ public class UserServiceImpl implements UserService {
         request.getSession().setAttribute("code", md5code);
         map.put("code", md5code);
         return map;
+    }
+
+    @Override
+    public Map verifyPow(HttpServletRequest request, HttpServletResponse response, JSONObject json) {
+        HttpSession session = request.getSession();
+        try {
+            HashMap powConfig = (HashMap) session.getAttribute("powConfig");
+
+            String sessionPrefix = (String) powConfig.get("prefix");
+            int difficulty = (int) powConfig.get("difficulty");
+            String md5Str = (String) json.get("md5Str");
+            int paddingNum = (int) json.get("paddingNum");
+
+            String hashCode = MD5Utils.code(sessionPrefix + (paddingNum));
+            // 如果该 session 尚未生成前缀，或者
+            // 前缀是空， 或者
+            // 哈希值不对，或者
+            // 哈希值的复杂度不对，此次验证都不通过
+            if (sessionPrefix == null || "".equals(sessionPrefix) || !hashCode.equals(md5Str) || !checkHash(hashCode, difficulty)) {
+                HashMap hashMap = new HashMap<>();
+                hashMap.put("verify", false);
+                // 重新生成随机前缀
+                String randomString = getRandomString(powPrefixLength);
+                hashMap.put("prefix", randomString);
+                hashMap.put("difficulty", powDifficulty);
+                session.setAttribute("powConfig", hashMap);
+                return hashMap;
+            } else {
+                HashMap hashMap = new HashMap<>();
+                hashMap.put("verify", true);
+                session.setAttribute("powVerifyResult", true);
+                return hashMap;
+            }
+        } catch (NullPointerException e) {
+            HashMap hashMap = new HashMap<>();
+            hashMap.put("verify", false);
+            // 重新生成随机前缀
+            String randomString = getRandomString(powPrefixLength);
+            hashMap.put("prefix", randomString);
+            hashMap.put("difficulty", powDifficulty);
+            session.setAttribute("powConfig", hashMap);
+            return hashMap;
+        }
+
+    }
+
+    private boolean checkHash(String hashStr, int difficulty) {
+        int zeroCnt = 0;
+        for (int idx = 0; idx < difficulty; idx++) {
+            if (hashStr.charAt(idx) != '0') break;
+            zeroCnt++;
+        }
+        return zeroCnt >= difficulty;
+    }
+
+    @Value("${pow-prefix-length:4}")
+    int powPrefixLength;
+
+    @Value("${pow-difficulty:4}")
+    int powDifficulty;
+
+
+    @Override
+    public Map getPowConfig(HttpServletRequest request, HttpServletResponse response) {
+        String randomString = getRandomString(powPrefixLength);
+        HashMap<Object, Object> hashMap = new HashMap<>();
+        hashMap.put("prefix", randomString);
+        hashMap.put("difficulty", powDifficulty);
+        request.getSession().setAttribute("powConfig", hashMap);
+        return hashMap;
+    }
+
+    private String getRandomString(int length) {
+        String str = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        Random random = new Random();
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < length; i++) {
+            int number = random.nextInt(62);
+            sb.append(str.charAt(number));
+        }
+        return sb.toString();
     }
 
     @Override

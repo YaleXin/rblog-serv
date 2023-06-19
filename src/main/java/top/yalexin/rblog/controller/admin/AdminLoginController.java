@@ -6,6 +6,8 @@ package top.yalexin.rblog.controller.admin;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -51,7 +53,7 @@ public class AdminLoginController {
         } else if (code == 1) {
 //             用户不存在
             return new ResponseEntity(map, HttpStatus.valueOf(402));
-        } else if(code == 2){
+        } else if (code == 2) {
 //             密码错误
             return new ResponseEntity(map, HttpStatus.valueOf(403));
         } else {
@@ -67,11 +69,33 @@ public class AdminLoginController {
         return new ResponseEntity(logout, HttpStatus.OK);
     }
 
-    @GetMapping("/verifyCode")
+//    @GetMapping("/verifyCode")
     public ResponseEntity verifyCode(HttpServletRequest request,
-                                 HttpServletResponse response) {
+                                     HttpServletResponse response) {
         Map map = userService.verifyCode(request, response);
+        System.out.println("request.getSession().getId() = " + request.getSession().getId());
 
+        return new ResponseEntity(map, HttpStatus.OK);
+    }
+
+    // 返回一个 config ，指明 pow 的困难度和随机前缀
+    @GetMapping("/powConfig")
+    public ResponseEntity getPowConfig(HttpServletRequest request,
+                                       HttpServletResponse response) {
+        Map map = userService.getPowConfig(request, response);
+        Logger logger = LoggerFactory.getLogger(this.getClass());
+        logger.info("sessionID  1 = " + request.getSession().getId() + "config = " + map);
+        return new ResponseEntity(map, HttpStatus.OK);
+    }
+
+    // 根据客户端提交的哈希值以及 padding，正确是否符合 pow ，即产生的哈希值是否满足条件
+    @PostMapping("/powVerify")
+    public ResponseEntity powVerify(HttpServletRequest request,
+                                    HttpServletResponse response, @RequestBody JSONObject json) {
+        Logger logger = LoggerFactory.getLogger(this.getClass());
+        logger.info("pow json = " + json);
+        Map map = userService.verifyPow(request, response, json.getJSONObject("data"));
+        logger.info("sessionID  2 = " + request.getSession().getId() + "verifyResult = " + map);
         return new ResponseEntity(map, HttpStatus.OK);
     }
 }

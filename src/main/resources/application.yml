@@ -44,3 +44,7 @@ email_receive: 495592364@qq.com
 
 #html template path (resources/templates/email/template.html)
 templatePath: email/template
+
+# POW 验证码相关
+pow-difficulty: 5
+pow-prefix-length: 8

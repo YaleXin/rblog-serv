@@ -25,14 +25,22 @@ public class AdminLoginInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         HttpSession session = request.getSession();
         String iRealIPAddr = IPUtils.getIRealIPAddr(request);
-        logger.info("access admin, IP ---> {}  ", iRealIPAddr);
-        logger.debug("access admin, IP ---> {}  ", iRealIPAddr);
+
         User user = (User) session.getAttribute("user");
         if (user == null) {
+
+            logger.info("access admin, must login first! IP ---> {}  ", iRealIPAddr);
+            logger.debug("access admin, must login first! IP ---> {}  ", iRealIPAddr);
+
             // 约定为 未登录状态
             response.setStatus(480);
             return false;
         } else {
+
+            StringBuffer requestURL = request.getRequestURL();
+            logger.info("access admin, already login, IP ---> {}  ,requestURL ---> {}", iRealIPAddr, requestURL);
+            logger.debug("access admin, already login, IP ---> {}  ,requestURL ---> {}", iRealIPAddr, requestURL);
+
             return true;
         }
     }
