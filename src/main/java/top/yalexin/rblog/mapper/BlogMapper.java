@@ -66,12 +66,11 @@ public interface BlogMapper {
     List<Blog> findBlogWithTagByInterval(Long startIndex, Long size, Long tagId);
 //********************************
 
-    //    *****************   查询所有文章对应的月份  *******************
-    @Select("SELECT DATE_FORMAT(blog.`create_time`, '%Y%m') year_months FROM t_blog blog  GROUP BY year_months ORDER BY year_months DESC")
-    List<Long> countBlogYearMonth();
 
-    @Select("select blog.name,blog.create_time createTime, blog.id id from t_blog blog where date_format(blog.create_time, '%Y%m')=#{yearMonth} order by blog.create_time desc")
-    List<Blog> findBlogYearMonth(Long yearMonth);
+    //    *****************   查询指定年份对应的文章  *******************
+    @Select("select blog.name,blog.create_time createTime, blog.id id from t_blog blog where date_format(blog.create_time, '%Y')=#{year} order by blog.create_time desc")
+    List<Blog> findBlogByYear(Long year);
+
 
     //    *****************  根据内容或者标题进行模糊分页查询 *******************
     @Select("SELECT count(id) FROM t_blog where name like #{nameOrContent} or content like #{nameOrContent}")
@@ -83,4 +82,6 @@ public interface BlogMapper {
     @Update("update t_blog set views=views+1 where id=#{blogId}")
     Long updateBlogViews(Long blogId);
 
+    //******* 获取所有文章对应的年份  *********
+    List<Long>getAllYears();
 }

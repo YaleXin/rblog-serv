@@ -4,15 +4,15 @@
  **/
 package top.yalexin.rblog.controller;
 
+import com.alibaba.fastjson.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import top.yalexin.rblog.service.ArchiveService;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @ResponseBody
@@ -22,9 +22,16 @@ public class ArchiveController {
     @Autowired
     private ArchiveService archiveService;
 
-    @GetMapping("/archive")
-    public ResponseEntity getBlogs() {
-        Map map = archiveService.getBlogListWithYearMonth();
+    @PostMapping("/archive")
+    public ResponseEntity getBlogs(@RequestBody HashMap json) {
+        Long year = JSON.parseObject(json.get("data").toString(), Long.class);
+        Map map = archiveService.getBlogListByYear(year);
+        return new ResponseEntity(map, HttpStatus.OK);
+    }
+    @GetMapping("/archive/years")
+    public ResponseEntity getYears() {
+        HashMap<String, List<Long>> map = new HashMap<>();
+        map.put("years", archiveService.getAllyears());
         return new ResponseEntity(map, HttpStatus.OK);
     }
 }
