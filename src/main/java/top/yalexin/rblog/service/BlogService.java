@@ -14,6 +14,7 @@ import java.util.Map;
 
 public interface BlogService {
     List<Blog> getBlogList();
+    List<Blog> getTopBlogList();
 
     PageResult getBlogByPage(Long pageNum, Long pageSize);
 

@@ -14,6 +14,7 @@ public class Blog {
     private String description;
     private Integer views;
     private boolean published;
+    private boolean top;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="UTC")
     private Date createTime;
@@ -107,6 +108,13 @@ public class Blog {
         this.published = published;
     }
 
+    public boolean isTop() {
+        return top;
+    }
+
+    public void setTop(boolean top) {
+        this.top = top;
+    }
 
     public Date getCreateTime() {
         return createTime;

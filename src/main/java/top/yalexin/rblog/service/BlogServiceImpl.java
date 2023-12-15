@@ -41,6 +41,11 @@ public class BlogServiceImpl implements BlogService {
         return blogMapper.findAllBlog();
     }
 
+    @Override
+    public List<Blog> getTopBlogList() {
+        return blogMapper.findTopBlog();
+    }
+
     /**
      * @param requestPageNum  从1开始
      * @param requestPageSize

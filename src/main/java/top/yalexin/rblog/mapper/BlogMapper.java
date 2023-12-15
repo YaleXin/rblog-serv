@@ -21,8 +21,8 @@ public interface BlogMapper {
 
     //****************       新增文章时有可能同时新增标签         **************
 
-    @Insert("insert into t_blog(name,content,description, create_time, update_time,category_id) values" +
-            "(#{name},#{content},#{description}, #{createTime}, #{updateTime}, #{category.id})")
+    @Insert("insert into t_blog(name,content,description, create_time, update_time,category_id,top) values" +
+            "(#{name},#{content},#{description}, #{createTime}, #{updateTime}, #{category.id}, #{top})")
     // 返回主键字段id值
     @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
     Long insertBlog(Blog blog);
@@ -33,7 +33,7 @@ public interface BlogMapper {
     //************************** 更改文章时有可能同时新增标签 *************************8
 
 
-    @Update("update t_blog set name=#{name},content=#{content},description=#{description}, create_time=#{createTime}, update_time=#{updateTime}, category_id=#{category.id} where id=#{id}")
+    @Update("update t_blog set name=#{name},content=#{content},description=#{description}, create_time=#{createTime}, update_time=#{updateTime}, category_id=#{category.id}, top=#{top} where id=#{id}")
     // 返回主键字段id值
     @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
     Long updateBlog(Blog blog);
@@ -84,4 +84,7 @@ public interface BlogMapper {
 
     //******* 获取所有文章对应的年份  *********
     List<Long>getAllYears();
+
+    //******* 获取置顶文章  *********
+    List<Blog> findTopBlog();
 }

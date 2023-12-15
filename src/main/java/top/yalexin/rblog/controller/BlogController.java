@@ -29,6 +29,14 @@ public class BlogController {
     private BlogService blogService;
 
 
+    @GetMapping("/top")
+    public ResponseEntity findTopBlogs(){
+        List<Blog> topBlogList = blogService.getTopBlogList();
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("topBlogs", topBlogList);
+        return new ResponseEntity(map, HttpStatus.OK);
+    }
+
     @GetMapping("/all")
     public List getAllBlogs() {
         System.out.println("getAllBlogs");

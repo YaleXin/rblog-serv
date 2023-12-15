@@ -22,6 +22,7 @@
         <result property="name" column="name"/>
         <result property="description" column="description"/>
         <result property="views" column="views"/>
+        <result property="top" column="top"/>
         <association property="category" javaType="Category">
             <id property="id" column="category_id"/>
             <result property="name" column="c_name"/>
@@ -42,6 +43,17 @@
         LEFT OUTER JOIN t_blog_tags bt ON blog.`id`=bt.`blogs_id`
         LEFT OUTER JOIN t_tag tag ON bt.`tags_id` = tag.`id`
         LEFT OUTER JOIN t_category ctgr ON blog.`category_id` = ctgr.`id`
+        ORDER BY create_time DESC
+    </select>
+
+    <select id="findTopBlog"  resultMap="blogWithCtgrAndTagMap">
+        SELECT blog.* ,tag.`name` AS tag_name, ctgr.`name` AS c_name, tag.`id` AS t_id
+        FROM (
+                 SELECT * FROM t_blog WHERE t_blog.top=1 ORDER BY create_time DESC
+             )  blog
+                 LEFT OUTER JOIN t_blog_tags bt ON blog.`id`=bt.`blogs_id`
+                 LEFT OUTER JOIN t_tag tag ON bt.`tags_id` = tag.`id`
+                 LEFT OUTER JOIN t_category ctgr ON blog.`category_id` = ctgr.`id`
         ORDER BY create_time DESC
     </select>
 
