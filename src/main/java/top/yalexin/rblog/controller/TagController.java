@@ -28,7 +28,7 @@ public class TagController {
 
     @GetMapping("/all")
     ResponseEntity getAllTags() {
-        List<Tag> tags = tagService.getTagList();
+        List<Tag> tags = tagService.getTagListWithBlogCnt();
         HashMap<String, Object> map = new HashMap<>();
         map.put("tags", tags);
         return new ResponseEntity(map, HttpStatus.OK);

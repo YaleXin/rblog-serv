@@ -11,7 +11,7 @@ import top.yalexin.rblog.util.PageResult;
 import java.util.List;
 
 public interface TagService {
-    List<Tag> getTagList();
+    List<Tag> getTagListWithBlogCnt();
 
     Tag addTag(Tag tag);
 

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.yalexin.rblog.mapper.TagMapper">
+
+
+    <select id="findAllTagsWithBlogCnt"  resultMap="tagWithBlogCnt">
+        SELECT t_tag.id, t_tag.name, COUNT(t_blog_tags.blogs_id) AS blogs_cnt
+        FROM t_tag
+                 LEFT JOIN t_blog_tags ON t_tag.id = t_blog_tags.tags_id
+        GROUP BY t_tag.id, t_tag.name
+
+    </select>
+
+    <resultMap id="tagWithBlogCnt" type="Tag">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="blogsCnt" column="blogs_cnt"/>
+    </resultMap>
+
+</mapper>

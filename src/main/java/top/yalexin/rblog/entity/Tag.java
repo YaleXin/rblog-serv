@@ -7,6 +7,7 @@ import java.util.List;
 public class Tag {
     private Long id;
     private String name;
+    private Long blogsCnt;
 
     private List<Blog> blogs = new ArrayList<>();
 
@@ -20,12 +21,21 @@ public class Tag {
 
     public Tag() {
     }
+    public Long getBlogsCnt() {
+        return blogsCnt;
+    }
+
+    public void setBlogsCnt(Long blogsCnt) {
+        this.blogsCnt = blogsCnt;
+    }
 
     @Override
     public String toString() {
         return "Tag{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", blogsCnt=" + blogsCnt +
+                ", blogs=" + blogs +
                 '}';
     }
 
