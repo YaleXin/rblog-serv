@@ -10,7 +10,8 @@ import top.yalexin.rblog.util.PageResult;
 import java.util.List;
 
 public interface CategoryService {
-    List<Category> getCategoryList();
+
+    List<Category> getCategoryListWithBlogCnt();
 
     Category addCategory(Category category);
 

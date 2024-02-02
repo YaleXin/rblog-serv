@@ -28,7 +28,7 @@ public class CategoryController {
 
     @GetMapping("/all")
     ResponseEntity getPageBlogByCategory() {
-        List<Category> categories = categoryService.getCategoryList();
+        List<Category> categories = categoryService.getCategoryListWithBlogCnt();
         HashMap<String, Object> map = new HashMap<>();
         map.put("categories", categories);
         return new ResponseEntity(map, HttpStatus.OK);

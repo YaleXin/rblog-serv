@@ -21,9 +21,10 @@ public class CategoryServiceImpl implements CategoryService {
     @Autowired
     private CategoryMapper categoryMapper;
 
+
     @Override
-    public List<Category> getCategoryList() {
-        return categoryMapper.findAllCategories();
+    public List<Category> getCategoryListWithBlogCnt() {
+        return categoryMapper.findAllCategoriesWithBlogCnt();
     }
 
     @Override

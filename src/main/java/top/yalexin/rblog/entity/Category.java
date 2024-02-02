@@ -9,8 +9,17 @@ public class Category {
     private String name;
 
     private List<Blog> blogs = new ArrayList<>();
+    private Long blogsCnt;
 
     public Category() {
+    }
+
+    public Long getBlogsCnt() {
+        return blogsCnt;
+    }
+
+    public void setBlogsCnt(Long blogsCnt) {
+        this.blogsCnt = blogsCnt;
     }
 
     public List<Blog> getBlogs() {
@@ -23,9 +32,11 @@ public class Category {
 
     @Override
     public String toString() {
-        return "category{" +
+        return "Category{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", blogs=" + blogs +
+                ", blogsCnt=" + blogsCnt +
                 '}';
     }
 

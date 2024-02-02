@@ -15,8 +15,8 @@ import java.util.List;
 @Component(value = "CategoryMapper")
 public interface CategoryMapper {
 
-    @Select("select * from t_category")
-    List<Category> findAllCategories();
+
+    List<Category> findAllCategoriesWithBlogCnt();
 
     @Insert("insert into t_category(name) values(#{name})")
     @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
