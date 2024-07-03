@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import top.yalexin.rblog.entity.Blog;
@@ -21,6 +22,8 @@ import top.yalexin.rblog.util.MarkdownUtils;
 import top.yalexin.rblog.util.PageUtils;
 import top.yalexin.rblog.util.PageResult;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.*;
 
 @Transactional
@@ -34,6 +37,9 @@ public class BlogServiceImpl implements BlogService {
     private CategoryMapper categoryMapper;
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
+    // 防抖时间，单位为毫秒（下面为1分钟）
+    private final int ANTI_SHAKE_TIME = 1 * 60 * 1000;
 
     @Override
     public List<Blog> getBlogList() {
@@ -123,16 +129,38 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public Blog getParsedBlogById(Long id) {
+    public Blog getParsedBlogById(Long id, HttpServletRequest request) {
         if (id == null || id < 0) return null;
         Blog rawBlog = blogMapper.findBlog(id);
         if (rawBlog != null) {
             String markdownContent = MarkdownUtils.markdownToHtmlExtensions(rawBlog.getContent());
             rawBlog.setContent(markdownContent);
-            blogMapper.updateBlogViews(rawBlog.getId());
+            tryUpdateView(request, rawBlog.getId());
+
         }
         return rawBlog;
     }
+
+    void tryUpdateView(HttpServletRequest request, Long blogId) {
+        Date now = new Date();
+
+        HttpSession session = request.getSession();
+        String key = session.getId() + "#tryUpdateView@" + blogId;
+        Date time = (Date) session.getAttribute(key);
+        // 该阶段时间内第一次访问
+        if (time == null) {
+            blogMapper.updateBlogViews(blogId);
+            session.setAttribute(key, now);
+        } else {
+            // 如果是在时间窗口内，啥都不做，否则，更新一次数据
+            if (now.getTime() - time.getTime() > ANTI_SHAKE_TIME) {
+                blogMapper.updateBlogViews(blogId);
+                session.setAttribute(key, now);
+            }
+        }
+
+    }
+
 
     /**
      * 验证待插入的博客的正确性并插入数据库
@@ -229,7 +257,6 @@ public class BlogServiceImpl implements BlogService {
         if (id == null || id < 0) return null;
         return blogMapper.deleteBlog(id);
     }
-
 
 
     private boolean checkBlog(Blog blog) {

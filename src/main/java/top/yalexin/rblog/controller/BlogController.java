@@ -7,6 +7,7 @@ package top.yalexin.rblog.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +16,7 @@ import top.yalexin.rblog.service.BlogService;
 import top.yalexin.rblog.service.BlogServiceImpl;
 import top.yalexin.rblog.util.PageResult;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 
@@ -55,9 +57,9 @@ public class BlogController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity getOneBlog(@PathVariable("id") Long id) {
+    public ResponseEntity getOneBlog(HttpServletRequest request, @PathVariable("id") Long id) {
         HashMap<String, Object> map = new HashMap<>();
-        Blog parsedBlogById = blogService.getParsedBlogById(id);
+        Blog parsedBlogById = blogService.getParsedBlogById(id, request);
         map.put("blog", parsedBlogById);
         return new ResponseEntity(map, HttpStatus.OK);
     }
