@@ -2,7 +2,7 @@
  * Author: Yalexin
  * Email: me@yalexin.top
  **/
-package top.yalexin.rblog.service;
+package top.yalexin.rblog.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import org.slf4j.Logger;
@@ -14,6 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 import top.yalexin.rblog.entity.Comment;
 import top.yalexin.rblog.entity.User;
 import top.yalexin.rblog.mapper.UserMapper;
+import top.yalexin.rblog.service.SendEmailService;
+import top.yalexin.rblog.service.UserService;
 import top.yalexin.rblog.util.IPUtils;
 import top.yalexin.rblog.util.MD5Utils;
 import top.yalexin.rblog.util.RandomValidateCodeUtil;

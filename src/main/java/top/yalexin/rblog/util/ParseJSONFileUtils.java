@@ -7,15 +7,19 @@ package top.yalexin.rblog.util;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+
+import com.alibaba.fastjson.TypeReference;
 import org.springframework.util.ResourceUtils;
+import top.yalexin.rblog.entity.Link;
 
 import java.io.*;
+import java.util.List;
 
 public class ParseJSONFileUtils {
     private final static String FILE_NAME = "./link/link.json";
 
     //读取json文件
-    private static String readJsonFile(String fileName) {
+    private static String readJsonFile(String fileName) throws IOException {
         fileName = FILE_NAME;
         String jsonStr = "";
         try {
@@ -33,14 +37,15 @@ public class ParseJSONFileUtils {
             return jsonStr;
         } catch (IOException e) {
             e.printStackTrace();
-            return null;
+            throw e;
         }
     }
 
-    public static JSONObject getJSONObject() {
+    public static List<Link> getJSONObject() throws IOException {
         String jsonFile = readJsonFile(FILE_NAME);
-        JSONObject jsonObject = JSON.parseObject(jsonFile);
-        return jsonObject;
+        List<Link> links = JSON.parseObject(jsonFile, new TypeReference<List<Link>>() {
+        });
+        return links;
     }
 
     public static void main(String[] args) throws FileNotFoundException {

@@ -1,14 +1,10 @@
 package top.yalexin.rblog;
 
-import org.apache.commons.codec.digest.Md5Crypt;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import top.yalexin.rblog.service.SendEmailServiceImpl;
+import top.yalexin.rblog.service.impl.SendEmailServiceImpl;
 import top.yalexin.rblog.util.MD5Utils;
-import top.yalexin.rblog.util.RandomValidateCodeUtil;
-
-import java.util.HashMap;
 
 @SpringBootTest
 class RblogServApplicationTests {

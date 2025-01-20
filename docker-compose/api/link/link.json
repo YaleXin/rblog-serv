@@ -1,4 +1,5 @@
-[
+{
+  "links": [
     {
       "id": 1,
       "type": "博客链接",
@@ -8,7 +9,7 @@
           "name": "黄阿信的hexo博客",
           "description": "要么改变世界，要么适应世界",
           "url": "yalexin.gitee.io/",
-          "avatar": "https://qiniu.yalexin.top/cat_mouse.jpg"
+          "avatar": "https://cdn.yalexin.top/favicon.png"
         },
         {
           "id": 3,
@@ -30,8 +31,8 @@
           "description": "读万卷书，行万里路",
           "url": "abliulei.com",
           "avatar": "https://s.gravatar.com/avatar/f2cd274ebde4d0855dc5836b000f9103?s=80"
-	},
-         {
+        },
+        {
           "id": 6,
           "name": "Blankj",
           "description": "基你太美之 AndroidUtilCode 作者。",
@@ -39,69 +40,100 @@
           "avatar": "https://blankj.com/images/avatar.png"
         },
 
-		{
+        {
           "id": 7,
           "name": "摘繁华个人博客",
           "description": "白衣无尘，亦如初见。",
           "url": "blog.zhaifanhua.com",
-          "avatar": "https://cdn.zhaifanhua.com/static/img/avatar/zhaifanhua.png"
+          "avatar": "https://cdn.zhaifanhua.com/www/img/avatar/zhaifanhua.webp"
         },
-		{
+        {
           "id": 8,
           "name": "Heanny Liu",
           "description": "Heanny Blog",
           "url": "www.heanny.cn",
           "avatar": "https://www.heanny.cn/favicon.ico"
         },
-		{
+        {
           "id": 9,
           "name": "Encaik学前端",
           "description": "论其术之大，观新纪于前，思吾道至端",
           "url": "encaik.top/",
           "avatar": "https://encaik.top/img/head.png"
         },
-		{
+        {
           "id": 10,
           "name": "LOGI",
           "description": "会点代码的强迫症",
           "url": "logi.im",
           "avatar": "https://code.bdstatic.com/npm/logicdn@1.0.0/logi.im/usr/images/global/logo.webp"
         },
+
+        {
+          "id": 11,
+          "name": "oursdreams",
+          "description": "一个NPC，一个社交废物",
+          "url": "oursdreams.top",
+          "avatar": ""
+        },
+        {
+          "id": 12,
+          "name": "CDxiaodong的博客",
+          "description": "简单点",
+          "url": "cdxiaodong.github.io",
+          "avatar": "https://cdxiaodong.github.io/img/avatar.png"
+        }
+
       ]
     },
     {
-	"id": 2,
-	"type": "OI",
-	"content":[
-            {
-		"id": 1,
-		"name": "oi-wiki",
-		"description": "OI Wiki 致力于成为一个免费开放且持续更新的 编程竞赛 (competitive programming) 知识整合站点。",
-		"url": "oi-wiki.org",
-		"avatar": "https://cdn.jsdelivr.net/npm/oicdn@0.0.1/wordArt.webp"
-	    },
-  	   {
-		"id": 2,
-		"name": "Virtual Judge",
-		"description": "Virtual Judge is not a real online judge. It can grab problems from other regular online judges and simulate submissions to other online judges. It aims to enable holding contests when you don't have the test data.",
-		"url": "vjudge.net",
-		"avatar": "https://vjudge.net/static/images/favicon.ico"
-	    },
-            {
-		"id": 3,
-		"name": "洛谷",
-		"description": "洛谷创办于2013年，致力于为参加noip、noi、acm的选手提供清爽、快捷的编程体验。它拥有在线测题系统、强大的社区、在线学习功能。很多教程内容由各位oiers提供的，内容广泛。",
-		"url": "www.luogu.com.cn",
-		"avatar": "https://cdn.luogu.com.cn/fe/logo.png"
-	    },
-    	    {
-		"id": 4,
-		"name": "力扣",
-		"description": "备战技术面试？力扣提供海量技术面试资源，帮助你高效提升编程技能，轻松拿下世界 IT 名企 Dream Offer。",
-		"url": "leetcode-cn.com",
-		"avatar": "https://static.leetcode-cn.com/cn-mono-assets/production/assets/logo-dark-cn.c42314a8.svg"
-	    }
-	]
+      "id": 2,
+      "type": "OI",
+      "content":[
+        {
+          "id": 1,
+          "name": "oi-wiki",
+          "description": "OI Wiki 致力于成为一个免费开放且持续更新的 编程竞赛 (competitive programming) 知识整合站点。",
+          "url": "oi-wiki.org",
+          "avatar": "https://cdn.jsdelivr.net/npm/oicdn@0.0.1/wordArt.webp"
+        },
+        {
+          "id": 2,
+          "name": "Virtual Judge",
+          "description": "Virtual Judge is not a real online judge. It can grab problems from other regular online judges and simulate submissions to other online judges. It aims to enable holding contests when you don't have the test data.",
+          "url": "vjudge.net",
+          "avatar": "https://vjudge.net/static/images/favicon.ico"
+        },
+        {
+          "id": 3,
+          "name": "洛谷",
+          "description": "洛谷创办于2013年，致力于为参加noip、noi、acm的选手提供清爽、快捷的编程体验。它拥有在线测题系统、强大的社区、在线学习功能。很多教程内容由各位oiers提供的，内容广泛。",
+          "url": "www.luogu.com.cn",
+          "avatar": "https://cdn.luogu.com.cn/fe/logo.png"
+        },
+        {
+          "id": 4,
+          "name": "力扣",
+          "description": "备战技术面试？力扣提供海量技术面试资源，帮助你高效提升编程技能，轻松拿下世界 IT 名企 Dream Offer。",
+          "url": "leetcode-cn.com",
+          "avatar": "https://static.leetcode-cn.com/cn-mono-assets/production/assets/logo-dark-cn.c42314a8.svg"
+        },
+        {
+          "id": 5,
+          "name": "ctf-wiki",
+          "description": "CTF（Capture The Flag，夺旗赛）起源于 1996 年 DEFCON 全球黑客大会，是网络安全爱好者之间的竞技游戏",
+          "url": "ctf-wiki.org",
+          "avatar": ""
+        },
+        {
+          "id": 6,
+          "name": "区块链与信誉系统研究组",
+          "description": "团队由刘园老师负责，学生来自东北大学、广州大学学生组成。包括本科生、硕士研究生、博士研究生。主要研究领域包括区块链共识激励机制，联邦学习区块链，数据隐私安全，网络安全攻防博弈等。主持国家自然基金青年项目1项，面上项目1项，省部级项目1项，发表学术论文60余篇。主讲课程《区块链技术》《博弈论》等。",
+          "url": "blockchain-neu.com/",
+          "avatar": "https://blockchain-neu.com/favicon.ico"
+        }
+
+      ]
     },
     {
       "id": 3,
@@ -128,37 +160,60 @@
           "url": "ps.gaoding.com/#/",
           "avatar": "https://cdn.dancf.com/image-design/img/aside-tools-ps.469a85be.svg"
         },
-	{
+        {
           "id": 4,
           "name": "CodeInWord",
           "description": "在线格式化代码，方便插入word",
-          "url":  "http://www.codeinword.com",
+          "url":  "www.codeinword.com",
           "avatar": ""
         }
-,
-	{
+      ,
+        {
           "id": 5,
           "name": "Data Structure Visualizations",
           "description": "可视化各种算法执行过程",
           "url":  "www.cs.usfca.edu/~galles/visualization/Algorithms.html",
           "avatar": "https://www.cs.usfca.edu/~galles/visualization/favicon.ico"
         },
-	{
+        {
           "id": 6,
           "name": "在线LaTeX公式编辑",
           "description": "LaTeX是一种基于TeX的排版系统，由美国计算机科学家莱斯利·兰伯特在20世纪80年代初期开发",
           "url":  "www.latexlive.com",
           "avatar": "-"
         },
-	 {
+        {
           "id": 7,
           "name": "git在线学习",
           "description": "“Learning Git Branching” 可以说是目前为止最好的教程了，在沙盒里你能执行相应的命令，还能看到每个命令的执行情况； 通过一系列刺激的关卡挑战，逐步深入的学习 Git 的强大功能，在这个过程中你可能还会发现一些有意思的事情。",
           "url":  "learngitbranching.js.org",
           "avatar": "-"
-        }
+        },
 
+
+        {
+          "id": 8,
+          "name": "Golang中文学习文档站",
+          "description": "Go爱好者驱动的中文学习站",
+          "url":  "golang.halfiisland.com",
+          "avatar": "https://golang.halfiisland.com/logo.png"
+        },
+        {
+          "id": 9,
+          "name": "Go指南",
+          "description": "Go 编程语言指南。",
+          "url": "tour.go-zh.org/welcome/1",
+          "avatar": "https://tour.go-zh.org/favicon.ico"
+        },
+        {
+          "id": 10,
+          "name": "IT Tools",
+          "description": "IT-Tools 由 Corentin Thomasset 用 ❤ 开发，汇集了对开发人员和 IT 从业者有用的工具。",
+          "url": "yalexin.github.io/it-tools",
+          "avatar": "-"
+        }
 
       ]
     }
-]
+  ]
+}

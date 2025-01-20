@@ -1,16 +1,16 @@
 spring:
-  profiles:
-    active:
-      - dev
-  cloud:
-    sentinel:
-      transport:
-        dashboard: localhost:8085  # Sentinel 控制台地址
-        port: 8719                 # Sentinel 连接端口
+  datasource:
+    url: jdbc:mysql://db:3306/blog?serverTimezone=Asia/Shanghai&characterEncoding=UTF-8&useSSL=false&useJDBCCompliantTimezoneShift=true&useUnicode=true
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.jdbc.Driver
+  jackson:
+    time-zone: GMT+8
+
   mail:
-    username: 495592364@qq.com
+    username: 123@qq.com
     # 授权码，不是QQ登录密码
-    password:
+    password: 123
     host: smtp.qq.com
     properties:
       mail:
@@ -28,6 +28,21 @@ spring:
     protocol: smtp
     default-encoding: utf-8
 
+
+logging:
+  level:
+    root: info
+    top:
+      yalexin:
+        rblog:
+          mapper: info
+  file:
+    name: log/blog-prod.log
+
+  logback:
+    rollingpolicy:
+      max-history: 180
+
 mybatis:
   mapper-locations: classpath:mybatis/*Mapper.xml
   config-location: classpath:mybatis/mybatis-config.xml
@@ -43,13 +58,6 @@ comment_email_self_enable: true
 blog_host: www.yalexin.top/blog
 blogger_nickname: 黄阿信
 # 发送邮件的邮箱
-email_from: 495592364@qq.com
+email_from: 123@qq.com
 # 接收通知邮件的邮箱
-email_receive: 495592364@qq.com
-
-#html template path (resources/templates/email/template.html)
-templatePath: email/template
-
-# POW 验证码相关
-pow-difficulty: 5
-pow-prefix-length: 8
+email_receive: 123@qq.com

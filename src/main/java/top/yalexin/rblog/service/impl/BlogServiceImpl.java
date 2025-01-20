@@ -2,7 +2,7 @@
  * Author: Yalexin
  * Email: 181303209@yzu.edu.cn
  **/
-package top.yalexin.rblog.service;
+package top.yalexin.rblog.service.impl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +18,7 @@ import top.yalexin.rblog.exception.DataFormatErrorException;
 import top.yalexin.rblog.mapper.BlogMapper;
 import top.yalexin.rblog.mapper.CategoryMapper;
 import top.yalexin.rblog.mapper.TagMapper;
+import top.yalexin.rblog.service.BlogService;
 import top.yalexin.rblog.util.MarkdownUtils;
 import top.yalexin.rblog.util.PageUtils;
 import top.yalexin.rblog.util.PageResult;
