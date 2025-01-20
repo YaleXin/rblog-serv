@@ -1,6 +1,7 @@
 package top.yalexin.rblog.config;
 
 import com.alibaba.csp.sentinel.datasource.*;
+import com.alibaba.csp.sentinel.slots.block.RuleConstant;
 import com.alibaba.csp.sentinel.slots.block.degrade.DegradeRule;
 import com.alibaba.csp.sentinel.slots.block.degrade.DegradeRuleManager;
 import com.alibaba.csp.sentinel.slots.block.flow.FlowRule;
@@ -23,21 +24,18 @@ public class SentinelConfig {
 
     @PostConstruct
     public void initRules() throws Exception {
+        initLocalDataSource();
         initFlowRules();
         initDegradeRules();
-        initLocalDataSource();
+
     }
 
     /**
      * 初始化限流规则
      */
     public void initFlowRules() {
-        // 单 IP 尝试访问的接口限流
-        int[][] array = {
-                {1, 2},  //
-                {2, 3}
-        };
 
+        // 限流规则
         ParamFlowRule adminLoginRule = new ParamFlowRule(SentinelConstant.ADMIN_LOGIN_RULE)
                 .setParamIdx(0) // 对第 0 个参数限流，即 IP 地址
                 .setCount(3) // 每分钟最多 3 次
@@ -52,9 +50,14 @@ public class SentinelConfig {
                 .setParamIdx(0) // 对第 0 个参数限流，即 IP 地址
                 .setCount(5) // 每分钟最多 10 次
                 .setDurationInSec(60); // 规则的统计周期为 60 秒
-
-        //
+        // 将规则加载到 Sentinel
         ParamFlowRuleManager.loadRules(Arrays.asList(adminLoginRule, adminGetPoWConfig, adminVerifyPoW));
+
+        FlowRule linkRule = new FlowRule(SentinelConstant.LINK_RULE)
+                .setGrade(RuleConstant.FLOW_GRADE_QPS) // 设置模式为 QPS
+                .setCount(3); // 每秒最多两次
+        // 将规则加载到 Sentinel
+        FlowRuleManager.loadRules(Arrays.asList(linkRule));
     }
 
     /**

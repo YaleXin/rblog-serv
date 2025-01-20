@@ -85,7 +85,7 @@ public class AdminLoginController {
             map.put("user", sessionUser);
             return new ResponseEntity(map, HttpStatus.OK);
         } else if (code == 1) {
-//             用户不存在
+//             用户不存在 自定义的状态码：402
             return new ResponseEntity(map, HttpStatus.valueOf(402));
         } else if (code == 2) {
 //             密码错误

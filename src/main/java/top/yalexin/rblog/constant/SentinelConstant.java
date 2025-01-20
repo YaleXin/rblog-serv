@@ -7,4 +7,6 @@ public interface SentinelConstant {
 
     String ADMIN_POW_VERIFY_RULE = "/admin/powVerify";
 
+    String LINK_RULE = "/link";
+
 }
