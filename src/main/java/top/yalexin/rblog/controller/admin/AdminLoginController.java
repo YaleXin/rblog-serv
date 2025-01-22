@@ -18,6 +18,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import top.yalexin.rblog.annotation.SentinelIpLimiter;
 import top.yalexin.rblog.constant.SentinelConstant;
 import top.yalexin.rblog.entity.User;
 import top.yalexin.rblog.service.UserService;
@@ -35,41 +36,22 @@ public class AdminLoginController {
     @Autowired
     private UserService userService;
     private Logger logger = LoggerFactory.getLogger(this.getClass());
+
+    @SentinelIpLimiter(
+            value = SentinelConstant.ADMIN_LOGIN_RULE,
+            entryType = EntryType.IN,
+            batchCount = 1
+    )
     @PostMapping("/login")
     public ResponseEntity login(HttpServletRequest request,
                                 HttpServletResponse response,
                                 @RequestBody JSONObject json) {
-        // 基于 IP 限流
-        String remoteAddr = IPUtils.getIRealIPAddr(request);
-        Entry entry = null;
-        try {
-            entry = SphU.entry(SentinelConstant.ADMIN_LOGIN_RULE, EntryType.IN, 1, remoteAddr);
-
-            // 被保护的业务逻辑
-            ResponseEntity responseEntity = tryLogin(request, response, json);
-            return responseEntity;
-        } catch (Throwable ex) {
-            // 业务异常
-            if (!BlockException.isBlockException(ex)) {
-                Tracer.trace(ex);
-                return new ResponseEntity(null, HttpStatus.OK);
-            }
-            // 降级操作
-            if (ex instanceof DegradeException) {
-                return new ResponseEntity(null, HttpStatus.OK);
-            }
-            // 限流操作
-            return new ResponseEntity(null, HttpStatus.TOO_MANY_REQUESTS);
-        } finally {
-            if (entry != null) {
-                entry.exit(1, remoteAddr);
-            }
-        }
+        return tryLogin(request, response, json);
     }
 
     private ResponseEntity tryLogin(HttpServletRequest request,
                                     HttpServletResponse response,
-                                    @RequestBody JSONObject json){
+                                    @RequestBody JSONObject json) {
         HashMap data = (HashMap) json.get("data");
         HashMap userMap = (HashMap) data.get("user");
         String codeStr = (String) data.get("code");
@@ -104,74 +86,29 @@ public class AdminLoginController {
     }
 
 
-
     // 返回一个 config ，指明 pow 的困难度和随机前缀
+    @SentinelIpLimiter(
+            value = SentinelConstant.ADMIN_POW_RULE,
+            entryType = EntryType.IN,
+            batchCount = 1
+    )
     @GetMapping("/powConfig")
     public ResponseEntity getPowConfig(HttpServletRequest request,
                                        HttpServletResponse response) {
-        // 基于 IP 限流
-        String remoteAddr = IPUtils.getIRealIPAddr(request);
-        Entry entry = null;
-        try {
-            entry = SphU.entry(SentinelConstant.ADMIN_POW_RULE, EntryType.IN, 1, remoteAddr);
-
-            // 被保护的业务逻辑
-            Map map = userService.getPowConfig(request, response);
-            Logger logger = LoggerFactory.getLogger(this.getClass());
-            return new ResponseEntity(map, HttpStatus.OK);
-        } catch (Throwable ex) {
-            // 业务异常
-            if (!BlockException.isBlockException(ex)) {
-                Tracer.trace(ex);
-                return new ResponseEntity(null, HttpStatus.OK);
-            }
-            // 降级操作
-            if (ex instanceof DegradeException) {
-                return new ResponseEntity(null, HttpStatus.OK);
-            }
-            // 限流操作
-            return new ResponseEntity(null, HttpStatus.TOO_MANY_REQUESTS);
-        } finally {
-            if (entry != null) {
-                entry.exit(1, remoteAddr);
-            }
-        }
-
-
+        Map map = userService.getPowConfig(request, response);
+        return new ResponseEntity(map, HttpStatus.OK);
     }
 
     // 根据客户端提交的哈希值以及 padding，正确是否符合 pow ，即产生的哈希值是否满足条件
+    @SentinelIpLimiter(
+            value = SentinelConstant.ADMIN_POW_VERIFY_RULE,
+            entryType = EntryType.IN,
+            batchCount = 1
+    )
     @PostMapping("/powVerify")
     public ResponseEntity powVerify(HttpServletRequest request,
                                     HttpServletResponse response, @RequestBody JSONObject json) {
-        // 基于 IP 限流
-        String remoteAddr = IPUtils.getIRealIPAddr(request);
-        Entry entry = null;
-        try {
-            entry = SphU.entry(SentinelConstant.ADMIN_POW_VERIFY_RULE, EntryType.IN, 1, remoteAddr);
-
-            // 被保护的业务逻辑
-            logger.info("pow json = " + json);
-            Map map = userService.verifyPow(request, response, json.getJSONObject("data"));
-            return new ResponseEntity(map, HttpStatus.OK);
-        } catch (Throwable ex) {
-            // 业务异常
-            if (!BlockException.isBlockException(ex)) {
-                Tracer.trace(ex);
-                return new ResponseEntity(null, HttpStatus.OK);
-            }
-            // 降级操作
-            if (ex instanceof DegradeException) {
-                return new ResponseEntity(null, HttpStatus.OK);
-            }
-            // 限流操作
-            return new ResponseEntity(null, HttpStatus.TOO_MANY_REQUESTS);
-        } finally {
-            if (entry != null) {
-                entry.exit(1, remoteAddr);
-            }
-        }
-
-
+        Map map = userService.verifyPow(request, response, json.getJSONObject("data"));
+        return new ResponseEntity(map, HttpStatus.OK);
     }
 }

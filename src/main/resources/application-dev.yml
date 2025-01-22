@@ -3,8 +3,7 @@ logging:
     root: info
     top:
       yalexin:
-        rblog:
-          mapper: debug
+        rblog: debug
   file:
     name: log/blog-dev.log
 spring:
