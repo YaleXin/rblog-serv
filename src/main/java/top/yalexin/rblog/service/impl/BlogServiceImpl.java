@@ -136,13 +136,19 @@ public class BlogServiceImpl implements BlogService {
         if (rawBlog != null) {
             String markdownContent = MarkdownUtils.markdownToHtmlExtensions(rawBlog.getContent());
             rawBlog.setContent(markdownContent);
-            tryUpdateView(request, rawBlog.getId());
+            rawBlog.setViews(rawBlog.getViews() + tryUpdateView(request, rawBlog.getId()));
 
         }
         return rawBlog;
     }
 
-    void tryUpdateView(HttpServletRequest request, Long blogId) {
+    /**
+     * 检查是否需要将访问量加 1
+     * @param request
+     * @param blogId
+     * @return
+     */
+    int tryUpdateView(HttpServletRequest request, Long blogId) {
         Date now = new Date();
 
         HttpSession session = request.getSession();
@@ -152,12 +158,15 @@ public class BlogServiceImpl implements BlogService {
         if (time == null) {
             blogMapper.updateBlogViews(blogId);
             session.setAttribute(key, now);
+            return 1;
         } else {
             // 如果是在时间窗口内，啥都不做，否则，更新一次数据
             if (now.getTime() - time.getTime() > ANTI_SHAKE_TIME) {
                 blogMapper.updateBlogViews(blogId);
                 session.setAttribute(key, now);
+                return 1;
             }
+            return 0;
         }
 
     }
