@@ -31,6 +31,7 @@ public class BlogController {
     private BlogService blogService;
 
 
+    @Cacheable(value = CacheNameConstant.BLOG_CACHE, key = "'topBlogs'")
     @GetMapping("/top")
     public ResponseEntity findTopBlogs(){
         List<Blog> topBlogList = blogService.getTopBlogList();

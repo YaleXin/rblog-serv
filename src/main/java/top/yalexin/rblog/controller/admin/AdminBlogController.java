@@ -52,7 +52,7 @@ public class AdminBlogController {
         map.put("result", blogService.deleteBlogById(id));
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
-
+// 有点问题，暂时不清除缓存   等缓存自动失效
 //    @CacheEvict(value = CacheNameConstant.BLOG_CACHE, key = "#json['data']['id']")
     @PutMapping("/modify")
     public ResponseEntity modifyBlog(@RequestBody HashMap json) {
