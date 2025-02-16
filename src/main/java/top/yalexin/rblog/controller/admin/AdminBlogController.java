@@ -9,10 +9,12 @@ import com.alibaba.fastjson.JSON;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import top.yalexin.rblog.constant.CacheNameConstant;
 import top.yalexin.rblog.entity.Blog;
 import top.yalexin.rblog.service.BlogService;
 import top.yalexin.rblog.util.PageResult;
@@ -29,8 +31,10 @@ public class AdminBlogController {
     private BlogService blogService;
 
 
+    // 清楚归档页面的缓存
+    @CacheEvict(value = CacheNameConstant.ARCHIVE_CACHE, allEntries = true)
     @PutMapping("/add")
-    ResponseEntity addBlog(@RequestBody HashMap json) {
+    public ResponseEntity addBlog(@RequestBody HashMap json) {
         Blog blog = (Blog) JSON.parseObject(json.get("data").toString(), Blog.class);
         logger.debug("前端blog-----> {}", blog);
         HashMap<String, Object> map = new HashMap<>();
@@ -41,15 +45,17 @@ public class AdminBlogController {
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
+    @CacheEvict(value = CacheNameConstant.BLOG_CACHE, key = "#id")
     @DeleteMapping("/delete/{id}")
-    ResponseEntity deleteBlog(@PathVariable("id") Long id) {
+    public ResponseEntity deleteBlog(@PathVariable("id") Long id) {
         HashMap<Object, Object> map = new HashMap<>();
         map.put("result", blogService.deleteBlogById(id));
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
+//    @CacheEvict(value = CacheNameConstant.BLOG_CACHE, key = "#json['data']['id']")
     @PutMapping("/modify")
-    ResponseEntity modifyBlog(@RequestBody HashMap json) {
+    public ResponseEntity modifyBlog(@RequestBody HashMap json) {
         Blog blog = (Blog) JSON.parseObject(json.get("data").toString(), Blog.class);
         logger.debug("前端blog-----> {}", blog);
         HashMap<String, Object> map = new HashMap<>();

@@ -7,9 +7,11 @@ package top.yalexin.rblog.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import top.yalexin.rblog.constant.CacheNameConstant;
 import top.yalexin.rblog.entity.Blog;
 import top.yalexin.rblog.service.BlogService;
 import top.yalexin.rblog.util.PageResult;
@@ -54,6 +56,7 @@ public class BlogController {
         return new ResponseEntity(map, HttpStatus.OK);
     }
 
+    @Cacheable(value = CacheNameConstant.BLOG_CACHE, key = "#id")
     @GetMapping("/{id}")
     public ResponseEntity getOneBlog(HttpServletRequest request, @PathVariable("id") Long id) {
         HashMap<String, Object> map = new HashMap<>();
@@ -62,10 +65,6 @@ public class BlogController {
         return new ResponseEntity(map, HttpStatus.OK);
     }
 
-    @PutMapping("/put")
-    public Blog addOneBlog(@RequestBody Blog blog) {
-        return blogService.addBlog(blog);
-    }
 
     @GetMapping("/search")
     public ResponseEntity getBlogListBySearch(@RequestParam(value = "nameOrcontent", required = false, defaultValue = "") String nameOrcontent,

@@ -6,11 +6,13 @@ package top.yalexin.rblog.controller;
 
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import top.yalexin.rblog.constant.CacheNameConstant;
 import top.yalexin.rblog.constant.SentinelConstant;
 import top.yalexin.rblog.entity.Link;
 
@@ -31,7 +33,9 @@ public class LinkController {
             blockHandler="getLinksBlockHandler",
             blockHandlerClass= SentinelLink.class
     )
+
     @GetMapping("/link")
+    @Cacheable(value = CacheNameConstant.LINK_CACHE)
     public ResponseEntity getLinks()  {
         HashMap<String, Object> map = new HashMap<>();
         List<Link> links = linkService.getAllLink();
