@@ -97,7 +97,7 @@
     </select>
 
     <select id="getAllYears" resultType="java.lang.Long">
-        SELECT DISTINCT DATE_FORMAT(create_time, '%Y') AS unique_year FROM t_blog ORDER BY create_time DESC;
+        SELECT DISTINCT DATE_FORMAT(create_time, '%Y') AS unique_year,create_time FROM t_blog ORDER BY create_time DESC;;
     </select>
 
 </mapper>
