@@ -15,6 +15,7 @@ import java.util.List;
 @Component(value = "BlogMapper")
 public interface BlogMapper {
     @Select("select * from t_blog")
+    @ResultMap("top.yalexin.rblog.mapper.BlogMapper.blogWithCtgrAndTagMap")
     List<Blog> findAllBlog();
 
     Blog findBlog(long id);

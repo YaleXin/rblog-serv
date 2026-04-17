@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import top.yalexin.rblog.constant.CacheNameConstant;
+import top.yalexin.rblog.entity.BlogsSummary;
 import top.yalexin.rblog.service.ArchiveService;
 
 import java.util.HashMap;
@@ -38,4 +39,12 @@ public class ArchiveController {
         map.put("years", archiveService.getAllyears());
         return new ResponseEntity(map, HttpStatus.OK);
     }
+    @GetMapping("/archive/summary")
+    public ResponseEntity getSummary() {
+        HashMap<String, Object> map = new HashMap<>();
+        BlogsSummary blogsSummary = archiveService.getBlogsSummary();
+        map.put("summary", blogsSummary);
+        return new ResponseEntity(map, HttpStatus.OK);
+    }
+
 }

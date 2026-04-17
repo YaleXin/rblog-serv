@@ -3,7 +3,7 @@
 <mapper namespace="top.yalexin.rblog.mapper.BlogMapper">
 
     <!--  ****************************************************  -->
-    <!--    Blog findBlog(long id);-->
+    <!--  通过ID查询文章   Blog findBlog(long id);-->
     <select id="findBlog" parameterType="long" resultMap="blogWithCtgrAndTagMap">
         SELECT blog.* ,tag.`name` AS tag_name, ctgr.`name` AS c_name, tag.`id` AS t_id
         FROM t_blog blog
@@ -34,7 +34,7 @@
         <result property="name" column="tag_name"/>
     </resultMap>
 
-    <!--    List<Blog> findBlogByInterval(Long startIndex, Long size);-->
+    <!--  分页查询    List<Blog> findBlogByInterval(Long startIndex, Long size);-->
     <select id="findBlogByInterval" parameterType="java.lang.Long" resultMap="blogWithCtgrAndTagMap">
         SELECT blog.* ,tag.`name` AS tag_name, ctgr.`name` AS c_name, tag.`id` AS t_id
         FROM (
@@ -46,6 +46,7 @@
         ORDER BY create_time DESC
     </select>
 
+    <!--  查询置顶文章    List<Blog> findTopBlog();-->
     <select id="findTopBlog"  resultMap="blogWithCtgrAndTagMap">
         SELECT blog.* ,tag.`name` AS tag_name, ctgr.`name` AS c_name, tag.`id` AS t_id
         FROM (
@@ -57,8 +58,7 @@
         ORDER BY create_time DESC
     </select>
 
-
-    <!--    List<Blog> findBlogWithCategoryByInterval(Long startIndex, Long size, Long categoryId);-->
+    <!--  分页查询分类下的文章    List<Blog> findBlogWithCategoryByInterval(Long startIndex, Long size, Long categoryId);-->
     <select id="findBlogWithCategoryByInterval" parameterType="java.lang.Long" resultMap="blogWithCtgrAndTagMap">
         SELECT blog.* ,tag.`name` AS tag_name, ctgr.`name` AS c_name, tag.`id` AS t_id
         FROM (
@@ -70,7 +70,8 @@
          LEFT OUTER JOIN t_category ctgr ON blog.`category_id` = ctgr.`id`
         ORDER BY create_time DESC
     </select>
-    <!--    List<Blog> findBlogWithTagByInterval(Long startIndex, Long size, Long tagId);-->
+
+    <!--  分页查询标签下的文章    List<Blog> findBlogWithTagByInterval(Long startIndex, Long size, Long tagId);-->
     <select id="findBlogWithTagByInterval" parameterType="java.lang.Long" resultMap="blogWithCtgrAndTagMap">
         SELECT blog.* ,tag.`name` AS tag_name, ctgr.`name` AS c_name, tag.`id` AS t_id
         FROM (
@@ -84,7 +85,7 @@
         ORDER BY create_time DESC
     </select>
 
-<!--    List<Blog> findBlogByIntervalAndNameOrContent(Long startIndex, Long size, String nameOrContent);-->
+    <!--  分页查询文章名称或内容包含指定字符串的文章    List<Blog> findBlogByIntervalAndNameOrContent(Long startIndex, Long size, String nameOrContent);-->
     <select id="findBlogByIntervalAndNameOrContent"  resultMap="blogWithCtgrAndTagMap">
         SELECT blog.* ,tag.`name` AS tag_name, ctgr.`name` AS c_name, tag.`id` AS t_id
         FROM (
@@ -96,8 +97,12 @@
         ORDER BY create_time DESC
     </select>
 
+    <!--  查询所有年份    List<String> getAllYears();-->
     <select id="getAllYears" resultType="java.lang.Long">
-        SELECT DISTINCT DATE_FORMAT(create_time, '%Y') AS unique_year,create_time FROM t_blog ORDER BY create_time DESC;;
+        SELECT DATE_FORMAT(create_time, '%Y') AS unique_year
+        FROM t_blog
+        GROUP BY DATE_FORMAT(create_time, '%Y')
+        ORDER BY MAX(create_time) DESC;
     </select>
 
 </mapper>

@@ -5,4 +5,6 @@ public interface CacheNameConstant {
     String LINK_CACHE = "link";
 
     String BLOG_CACHE = "blog";
+
+    String WORD_CLOUD_ALL = "wordCloudAll";
 }
