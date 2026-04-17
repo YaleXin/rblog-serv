@@ -16,6 +16,9 @@ log/
 .springBeans
 .sts4-cache
 
+# macOS
+.DS_Store
+
 ### IntelliJ IDEA ###
 .idea
 *.iws
