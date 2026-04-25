@@ -9,7 +9,12 @@ public class User {
     private Long id;
     private String nickname;
     private String username;
+
     private String password;
+
+    private String salt;
+
+
     private String email;
     private String avatar;
     private Integer type;
@@ -64,13 +69,8 @@ public class User {
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
-    }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+
 
     public String getEmail() {
         return email;
@@ -113,5 +113,21 @@ public class User {
     }
 
     public User() {
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
     }
 }

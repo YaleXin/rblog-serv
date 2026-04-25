@@ -59,8 +59,7 @@ public class AdminLoginController {
         User user = new User();
         user.setUsername((String) userMap.get("username"));
         user.setPassword((String) userMap.get("password"));
-        String salt = (String) data.get("salt");
-        int code = userService.login(user, salt, codeStr, request, response);
+        int code = userService.login(user, codeStr, request, response);
         HashMap<String, User> map = new HashMap<>();
         if (code == 0) {
             User sessionUser = (User) request.getSession().getAttribute("user");

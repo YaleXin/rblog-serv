@@ -48,13 +48,12 @@ public class UserServiceImpl implements UserService {
 
     /**
      * @param user     前端传过来的user
-     * @param salt     随机密令
      * @param request
      * @param response
      * @return 0: 登录成功，1：用户不存在，2：密码错误
      */
     @Override
-    public int login(User user, String salt, String codeStr, HttpServletRequest request, HttpServletResponse response) {
+    public int login(User user, String codeStr, HttpServletRequest request, HttpServletResponse response) {
         final int LOGIN_SUCCESS = 0, USER_NOT_EXIST = 1, PSW_ERROR = 2, CODE_ERROR = 3;
         if (user == null || user.getUsername() == null || "".equals(user.getUsername().trim())) {
             return USER_NOT_EXIST;
@@ -77,7 +76,8 @@ public class UserServiceImpl implements UserService {
 
         // ----   验证该客户端是否已经进行有效 pow    --- //
         try {
-            boolean powVerifyResult = (boolean) request.getSession().getAttribute("powVerifyResult");
+            HttpSession session = request.getSession();
+            boolean powVerifyResult = (boolean) session.getAttribute("powVerifyResult");
             if(!powVerifyResult){
                 return CODE_ERROR;
             }
@@ -88,12 +88,12 @@ public class UserServiceImpl implements UserService {
 
         User databaseUser = userMapper.findUser(user.getUsername());
         if (databaseUser == null) return USER_NOT_EXIST;
-        // 前端传过来的密码是 md5(md5(md5(psw)) + salt)
-        // 数据库中的是 md5(md5(psw))
-        String saltCode = MD5Utils.code(databaseUser.getPassword() + salt);
-        if (user.getPassword().equals(saltCode)) {
+        // 前端传过来的密码是 md5(md5(psw))
+        // 数据库中的是 md5(md5(md5(psw))+salt)
+        if (databaseUser.getPassword().equals(MD5Utils.code(user.getPassword() + databaseUser.getSalt()))) {
             // 将密码设为空 防止前端拿到密码
             databaseUser.setPassword("");
+            databaseUser.setSalt("");
             request.getSession().setAttribute("user", databaseUser);
             Comment comment = new Comment();
             comment.setBlogId((long) 0);
