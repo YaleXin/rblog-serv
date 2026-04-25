@@ -7,4 +7,6 @@ public interface CacheNameConstant {
     String BLOG_CACHE = "blog";
 
     String WORD_CLOUD_ALL = "wordCloudAll";
+
+    String ARCHIVE_SUMMARY = "archiveSummary";
 }

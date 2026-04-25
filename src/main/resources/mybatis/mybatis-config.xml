@@ -8,5 +8,6 @@
     <typeAlias type="top.yalexin.rblog.entity.Category" alias="Category"/>
     <typeAlias type="top.yalexin.rblog.entity.Tag" alias="Tag"/>
     <typeAlias type="top.yalexin.rblog.entity.Comment" alias="Comment"/>
+    <typeAlias type="top.yalexin.rblog.entity.WordCloudRaw" alias="WordCloudRaw"/>
 </typeAliases>
 </configuration>

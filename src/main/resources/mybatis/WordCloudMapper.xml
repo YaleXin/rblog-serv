@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.yalexin.rblog.mapper.WordCloudRawMapper">
+
+
+
+    <resultMap id="answerMap" type="WordCloudRaw">
+        <id property="id" column="id"/>
+        <result property="wordCloudJsonStr" column="word_cloud_json_str"/>
+        <result property="createTime" column="create_time"/>
+        <result property="modelName" column="model_name"/>
+        <result property="tokenUsage" column="token_usage"/>
+        <result property="timeUsage" column="time_usage"/>
+        <result property="failReason" column="fail_reason"/>
+    </resultMap>
+
+
+
+</mapper>

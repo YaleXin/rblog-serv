@@ -40,6 +40,7 @@ public class ArchiveController {
         return new ResponseEntity(map, HttpStatus.OK);
     }
     @GetMapping("/archive/summary")
+    @Cacheable(value = CacheNameConstant.ARCHIVE_SUMMARY)
     public ResponseEntity getSummary() {
         HashMap<String, Object> map = new HashMap<>();
         BlogsSummary blogsSummary = archiveService.getBlogsSummary();

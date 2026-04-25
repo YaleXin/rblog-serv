@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import top.yalexin.rblog.constant.CacheNameConstant;
 import top.yalexin.rblog.entity.WordCloud;
+import top.yalexin.rblog.entity.WordCloudRaw;
 import top.yalexin.rblog.service.WordCloudService;
 
 import java.util.HashMap;
@@ -24,7 +25,7 @@ public class WordCloudController {
     @GetMapping("/all")
     @Cacheable(value = CacheNameConstant.WORD_CLOUD_ALL)
     public ResponseEntity getAllBlogWordCloud(){
-        List<WordCloud> blogsWordCloud = wordCloudService.getBlogsWordCloud();
+        List<WordCloudRaw.WordCloudItem> blogsWordCloud = wordCloudService.getBlogsWordCloud();
         HashMap<String, Object> map = new HashMap<>();
         map.put("wordCloud", blogsWordCloud);
         return new ResponseEntity(map, HttpStatus.OK);
