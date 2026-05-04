@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import top.yalexin.rblog.entity.User;
 import top.yalexin.rblog.service.UserService;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 
 @Controller

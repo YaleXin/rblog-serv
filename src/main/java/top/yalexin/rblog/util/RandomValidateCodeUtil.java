@@ -1,19 +1,10 @@
 package top.yalexin.rblog.util;
 
 
-import org.apache.commons.codec.binary.Base64;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import org.springframework.stereotype.Component;
-import sun.misc.BASE64Encoder;
 
 
 import javax.imageio.ImageIO;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Line2D;
@@ -118,9 +109,9 @@ public class RandomValidateCodeUtil {
         }
         //转换成字节
         byte[] bytes = baos.toByteArray();
-        BASE64Encoder encoder = new BASE64Encoder();
+        java.util.Base64.Encoder encoder = java.util.Base64.getEncoder();
         //转换成base64串
-        String png_base64 = encoder.encodeBuffer(bytes).trim();
+        String png_base64 = encoder.encodeToString(bytes).trim();
         png_base64 = png_base64.replaceAll("\n", "").replaceAll("\r", "");//删除 \r\n
         return "data:image/jpg;base64," + png_base64;
     }

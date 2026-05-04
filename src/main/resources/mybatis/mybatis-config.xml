@@ -3,11 +3,15 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-<typeAliases>
-    <typeAlias type="top.yalexin.rblog.entity.Blog" alias="Blog"/>
-    <typeAlias type="top.yalexin.rblog.entity.Category" alias="Category"/>
-    <typeAlias type="top.yalexin.rblog.entity.Tag" alias="Tag"/>
-    <typeAlias type="top.yalexin.rblog.entity.Comment" alias="Comment"/>
-    <typeAlias type="top.yalexin.rblog.entity.WordCloudRaw" alias="WordCloudRaw"/>
-</typeAliases>
+    <settings>
+        <!-- 开启驼峰命名自动映射 -->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+    <typeAliases>
+        <typeAlias type="top.yalexin.rblog.entity.Blog" alias="Blog"/>
+        <typeAlias type="top.yalexin.rblog.entity.Category" alias="Category"/>
+        <typeAlias type="top.yalexin.rblog.entity.Tag" alias="Tag"/>
+        <typeAlias type="top.yalexin.rblog.entity.Comment" alias="Comment"/>
+        <typeAlias type="top.yalexin.rblog.entity.WordCloudRaw" alias="WordCloudRaw"/>
+    </typeAliases>
 </configuration>

@@ -7,7 +7,7 @@ package top.yalexin.rblog.service;
 import top.yalexin.rblog.entity.Comment;
 import top.yalexin.rblog.util.PageResult;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public interface CommentService {

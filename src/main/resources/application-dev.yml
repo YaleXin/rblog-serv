@@ -11,7 +11,7 @@ spring:
     url: jdbc:mysql://localhost:3306/blog?serverTimezone=UTC&characterEncoding=UTF-8&useSSL=false&useJDBCCompliantTimezoneShift=true&useUnicode=true
     username: root
     password: 123456
-    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
 server:
   address: 0.0.0.0
   servlet:

@@ -7,8 +7,8 @@ package top.yalexin.rblog.service;
 import com.alibaba.fastjson.JSONObject;
 import top.yalexin.rblog.entity.User;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.util.Map;
 
 public interface UserService {

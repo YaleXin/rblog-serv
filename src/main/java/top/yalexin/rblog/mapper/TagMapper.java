@@ -5,15 +5,11 @@
 package top.yalexin.rblog.mapper;
 
 import org.apache.ibatis.annotations.*;
-import org.springframework.stereotype.Component;
-import top.yalexin.rblog.entity.Category;
 import top.yalexin.rblog.entity.Tag;
 
 import java.util.List;
 
 @Mapper
-
-@Component(value = "TagMapper")
 public interface TagMapper {
 
     List<Tag> findAllTagsWithBlogCnt();

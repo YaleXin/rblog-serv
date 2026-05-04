@@ -4,6 +4,7 @@
  **/
 package top.yalexin.rblog.service.impl;
 
+import jakarta.mail.internet.MimeMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,12 +13,10 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
+
 
 
 import top.yalexin.rblog.entity.Blog;
@@ -27,7 +26,7 @@ import top.yalexin.rblog.service.SendEmailService;
 import top.yalexin.rblog.util.EmailTemplateUtils;
 
 
-@Component
+
 @Service
 @Transactional
 public class SendEmailServiceImpl implements SendEmailService {
@@ -113,7 +112,7 @@ public class SendEmailServiceImpl implements SendEmailService {
             helper.setText(content, true);//true代表支持html
             javaMailSender.send(message);
             success = true;
-        } catch (MessagingException e) {
+        } catch (Exception e) {
             logger.error("从 {} 发送至 {} HTML邮件失败：", from, to, e);
         }finally {
             return success;

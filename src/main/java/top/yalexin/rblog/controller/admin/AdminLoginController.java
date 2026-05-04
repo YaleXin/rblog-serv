@@ -4,12 +4,8 @@
  **/
 package top.yalexin.rblog.controller.admin;
 
-import com.alibaba.csp.sentinel.Entry;
 import com.alibaba.csp.sentinel.EntryType;
-import com.alibaba.csp.sentinel.SphU;
-import com.alibaba.csp.sentinel.Tracer;
-import com.alibaba.csp.sentinel.slots.block.BlockException;
-import com.alibaba.csp.sentinel.slots.block.degrade.DegradeException;
+
 import com.alibaba.fastjson.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,8 +20,8 @@ import top.yalexin.rblog.entity.User;
 import top.yalexin.rblog.service.UserService;
 import top.yalexin.rblog.util.IPUtils;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
 

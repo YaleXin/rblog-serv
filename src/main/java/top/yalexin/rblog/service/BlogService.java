@@ -4,15 +4,12 @@
  **/
 package top.yalexin.rblog.service;
 
-import org.springframework.http.HttpRequest;
 import top.yalexin.rblog.entity.Blog;
 import top.yalexin.rblog.util.PageResult;
-//import top.yalexin.rblog.util.PageRequest;
-//import top.yalexin.rblog.util.PageResult;
 
-import javax.servlet.http.HttpServletRequest;
+
+import jakarta.servlet.http.HttpServletRequest;
 import java.util.List;
-import java.util.Map;
 
 public interface BlogService {
     List<Blog> getBlogList();

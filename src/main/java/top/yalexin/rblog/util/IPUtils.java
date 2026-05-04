@@ -4,7 +4,8 @@
  **/
 package top.yalexin.rblog.util;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
+
 
 public class IPUtils {
     public static String getIRealIPAddr(HttpServletRequest request) {

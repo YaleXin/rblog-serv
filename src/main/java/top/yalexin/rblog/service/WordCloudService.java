@@ -1,6 +1,5 @@
 package top.yalexin.rblog.service;
 
-import top.yalexin.rblog.entity.WordCloud;
 import top.yalexin.rblog.entity.WordCloudRaw;
 
 import java.util.List;

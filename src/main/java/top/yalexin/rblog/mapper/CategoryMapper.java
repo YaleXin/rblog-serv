@@ -5,14 +5,11 @@
 package top.yalexin.rblog.mapper;
 
 import org.apache.ibatis.annotations.*;
-import org.springframework.stereotype.Component;
 import top.yalexin.rblog.entity.Category;
 
 import java.util.List;
 
 @Mapper
-
-@Component(value = "CategoryMapper")
 public interface CategoryMapper {
 
 

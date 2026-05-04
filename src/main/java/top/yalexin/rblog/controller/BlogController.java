@@ -16,7 +16,7 @@ import top.yalexin.rblog.entity.Blog;
 import top.yalexin.rblog.service.BlogService;
 import top.yalexin.rblog.util.PageResult;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 

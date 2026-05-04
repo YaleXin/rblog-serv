@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import top.yalexin.rblog.entity.Category;
 import top.yalexin.rblog.entity.Comment;
 import top.yalexin.rblog.entity.User;
 import top.yalexin.rblog.mapper.CommentMapper;
@@ -19,8 +18,8 @@ import top.yalexin.rblog.util.IPUtils;
 import top.yalexin.rblog.util.PageResult;
 import top.yalexin.rblog.util.PageUtils;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
