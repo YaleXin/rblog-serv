@@ -29,6 +29,14 @@ public class WordCloudRaw {
         private String word;
         private Integer weight;
 
+        @Override
+        public String toString() {
+            return "WordCloudItem{" +
+                    "word='" + word + '\'' +
+                    ", weight=" + weight +
+                    '}';
+        }
+
         // 必须有无参构造
         public WordCloudItem() {}
 

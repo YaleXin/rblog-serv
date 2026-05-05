@@ -6,4 +6,7 @@ import java.util.List;
 
 public interface WordCloudService {
      List<WordCloudRaw.WordCloudItem> getBlogsWordCloud();
+     String generateWordCloud();
+
+     Long saveWordCloud();
 }
