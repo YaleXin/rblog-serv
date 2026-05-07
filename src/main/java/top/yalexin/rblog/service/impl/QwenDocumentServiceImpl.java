@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import top.yalexin.rblog.constant.AIConstant;
 import top.yalexin.rblog.entity.Blog;
@@ -138,6 +139,7 @@ public class QwenDocumentServiceImpl implements QwenDocumentService {
         }
     }
 
+    @Async
     void deleteFiles(List<String> fileIds) {
         for (String fileId : fileIds) {
             try {

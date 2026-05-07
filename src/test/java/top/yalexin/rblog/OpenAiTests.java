@@ -3,6 +3,7 @@ package top.yalexin.rblog;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import top.yalexin.rblog.entity.WordCloudRaw;
 import top.yalexin.rblog.service.QwenDocumentService;
 import top.yalexin.rblog.service.WordCloudService;
 
@@ -53,7 +54,7 @@ public class OpenAiTests {
 
     @Test
     public void testGetBlogsWordCloud() {
-        Long aLong = wordCloudService.saveWordCloud();
-        System.out.println("保存的词云id: " + aLong);
+        WordCloudRaw wordCloudRaw = wordCloudService.generateAndSaveWordCloud();
+        System.out.println("保存的词云: " + wordCloudRaw);
     }
 }

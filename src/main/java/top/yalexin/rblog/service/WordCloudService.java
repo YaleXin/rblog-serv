@@ -8,5 +8,5 @@ public interface WordCloudService {
      List<WordCloudRaw.WordCloudItem> getBlogsWordCloud();
      String generateWordCloud();
 
-     Long saveWordCloud();
+     WordCloudRaw generateAndSaveWordCloud();
 }

@@ -80,11 +80,11 @@ public class WordCloudServiceImpl implements WordCloudService {
     }
 
     @Override
-    public Long saveWordCloud() {
+    public WordCloudRaw generateAndSaveWordCloud() {
         WordCloudRaw wordCloudRaw = new WordCloudRaw();
         // 统计耗时
         long startTime = System.currentTimeMillis();
-        try{
+        try {
             String wordCloudJsonSt = generateWordCloud();
 
             wordCloudRaw.setWordCloudJsonStr(wordCloudJsonSt);
@@ -96,12 +96,11 @@ public class WordCloudServiceImpl implements WordCloudService {
             } else {
                 wordCloudRaw.setFailReason(null);
             }
-        }catch (Exception e) {
+        } catch (Exception e) {
             wordCloudRaw.setFailReason(e.getMessage());
         }
 
         long endTime = System.currentTimeMillis();
-
 
 
         wordCloudRaw.setCreateTime(LocalDateTime.now().withNano(0));
@@ -112,7 +111,12 @@ public class WordCloudServiceImpl implements WordCloudService {
 
         Long aLong = wordCloudRawMapper.insertWordCloudRaw(wordCloudRaw);
 
-        return aLong;
+        if (aLong != null && aLong > 0) {
+            wordCloudRaw.setId(aLong);
+            return wordCloudRaw;
+        } else {
+            return null;
+        }
     }
 
     /**
